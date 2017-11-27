@@ -13,5 +13,8 @@
     "cross-env": "^5.0.5",
     "webpack": "^3.7.1",
     "webpack-dev-server": "^2.8.1"
+  },
+  "dependencies": {
+    "events": "^1.1.1"
   }
 }

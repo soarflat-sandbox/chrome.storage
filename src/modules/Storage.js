@@ -1,8 +1,8 @@
-export class Storage {
-  static get({ storageArea = 'local', keys, callback = undefined }) {
-    chrome.storage[storageArea].get(keys, () => {
+export default class Storage {
+  static get({ storageArea = 'local', keys = null, callback = undefined }) {
+    chrome.storage[storageArea].get(keys, (items) => {
       if (typeof callback !== 'undefined') {
-        callback();
+        callback(items);
       }
     });
   }
