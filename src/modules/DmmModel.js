@@ -1,11 +1,11 @@
 import DomManager from '../common/DomManager';
 
 export default class DmmModel {
-  static getItemData({ itemsToGet }) {
+  static getItemData({ itemKeysToGet }) {
     const itemData = {};
 
-    itemsToGet.forEach((itemToGet) => {
-      itemData[itemToGet] = this[itemToGet]();
+    itemKeysToGet.forEach((itemKeyToGet) => {
+      itemData[itemKeyToGet] = this[itemKeyToGet]();
     });
 
     return itemData;

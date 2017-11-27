@@ -72,11 +72,11 @@
 
 var _events = __webpack_require__(1);
 
-var _Storage = __webpack_require__(3);
+var _Storage = __webpack_require__(2);
 
 var _Storage2 = _interopRequireDefault(_Storage);
 
-var _DmmModel = __webpack_require__(4);
+var _DmmModel = __webpack_require__(3);
 
 var _DmmModel2 = _interopRequireDefault(_DmmModel);
 
@@ -91,7 +91,7 @@ emitter.on('gotItems', function (items) {
   entity.dmmCollections = items.dmmCollections || [];
 
   var data = _DmmModel2.default.getItemData({
-    itemsToGet: ['href', 'title']
+    itemKeysToGet: ['href', 'title']
   });
 
   entity.dmmCollections.push(data);
@@ -417,8 +417,7 @@ function isUndefined(arg) {
 
 
 /***/ }),
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -490,7 +489,7 @@ var Storage = function () {
 exports.default = Storage;
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -502,7 +501,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _DomManager = __webpack_require__(5);
+var _DomManager = __webpack_require__(4);
 
 var _DomManager2 = _interopRequireDefault(_DomManager);
 
@@ -520,12 +519,12 @@ var DmmModel = function () {
     value: function getItemData(_ref) {
       var _this = this;
 
-      var itemsToGet = _ref.itemsToGet;
+      var itemKeysToGet = _ref.itemKeysToGet;
 
       var itemData = {};
 
-      itemsToGet.forEach(function (itemToGet) {
-        itemData[itemToGet] = _this[itemToGet]();
+      itemKeysToGet.forEach(function (itemKeyToGet) {
+        itemData[itemKeyToGet] = _this[itemKeyToGet]();
       });
 
       return itemData;
@@ -548,7 +547,7 @@ var DmmModel = function () {
 exports.default = DmmModel;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
