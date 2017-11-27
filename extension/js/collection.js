@@ -72,9 +72,9 @@
 
 var _events = __webpack_require__(1);
 
-var _Storage = __webpack_require__(2);
+var _ChromeStorage = __webpack_require__(2);
 
-var _Storage2 = _interopRequireDefault(_Storage);
+var _ChromeStorage2 = _interopRequireDefault(_ChromeStorage);
 
 var _DmmModel = __webpack_require__(3);
 
@@ -96,12 +96,12 @@ emitter.on('gotItems', function (items) {
 
   entity.dmmCollections.push(data);
 
-  _Storage2.default.set({
+  _ChromeStorage2.default.set({
     items: entity
   });
 });
 
-_Storage2.default.get({
+_ChromeStorage2.default.get({
   keys: keys,
   callback: function callback(items) {
     emitter.emit('gotItems', items);
@@ -431,12 +431,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Storage = function () {
-  function Storage() {
-    _classCallCheck(this, Storage);
+var ChromeStorage = function () {
+  function ChromeStorage() {
+    _classCallCheck(this, ChromeStorage);
   }
 
-  _createClass(Storage, null, [{
+  _createClass(ChromeStorage, null, [{
     key: 'get',
     value: function get(_ref) {
       var _ref$storageArea = _ref.storageArea,
@@ -483,10 +483,10 @@ var Storage = function () {
     }
   }]);
 
-  return Storage;
+  return ChromeStorage;
 }();
 
-exports.default = Storage;
+exports.default = ChromeStorage;
 
 /***/ }),
 /* 3 */

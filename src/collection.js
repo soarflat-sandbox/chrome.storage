@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import Storage from './modules/Storage';
+import ChromeStorage from './common/ChromeStorage';
 import DmmModel from './modules/DmmModel';
 
 const emitter = new EventEmitter();
@@ -16,12 +16,12 @@ emitter.on('gotItems', (items) => {
 
   entity.dmmCollections.push(data);
 
-  Storage.set({
+  ChromeStorage.set({
     items: entity,
   });
 });
 
-Storage.get({
+ChromeStorage.get({
   keys,
   callback: (items) => {
     emitter.emit('gotItems', items);
