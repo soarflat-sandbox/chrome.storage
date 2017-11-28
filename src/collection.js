@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import ChromeStorage from './common/ChromeStorage';
-import DmmModel from './modules/DmmModel';
+import ItemModel from './modules/ItemModel';
 
 const emitter = new EventEmitter();
 const keys = 'dmmCollections';
@@ -10,7 +10,7 @@ emitter.on('gotItems', (items) => {
 
   entity.dmmCollections = items.dmmCollections || [];
 
-  const data = DmmModel.getItemData({
+  const data = ItemModel.get({
     itemKeysToGet: ['href', 'title']
   });
 

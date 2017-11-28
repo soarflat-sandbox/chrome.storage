@@ -76,9 +76,9 @@ var _ChromeStorage = __webpack_require__(2);
 
 var _ChromeStorage2 = _interopRequireDefault(_ChromeStorage);
 
-var _DmmModel = __webpack_require__(3);
+var _ItemModel = __webpack_require__(3);
 
-var _DmmModel2 = _interopRequireDefault(_DmmModel);
+var _ItemModel2 = _interopRequireDefault(_ItemModel);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -90,7 +90,7 @@ emitter.on('gotItems', function (items) {
 
   entity.dmmCollections = items.dmmCollections || [];
 
-  var data = _DmmModel2.default.getItemData({
+  var data = _ItemModel2.default.get({
     itemKeysToGet: ['href', 'title']
   });
 
@@ -509,14 +509,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var DmmModel = function () {
-  function DmmModel() {
-    _classCallCheck(this, DmmModel);
+var ItemModel = function () {
+  function ItemModel() {
+    _classCallCheck(this, ItemModel);
   }
 
-  _createClass(DmmModel, null, [{
-    key: 'getItemData',
-    value: function getItemData(_ref) {
+  _createClass(ItemModel, null, [{
+    key: 'get',
+    value: function get(_ref) {
       var _this = this;
 
       var itemKeysToGet = _ref.itemKeysToGet;
@@ -539,12 +539,25 @@ var DmmModel = function () {
     value: function title() {
       return _DomManager2.default.getText({ selector: '.ArticleMainHeader__title' });
     }
+  }, {
+    key: 'categories',
+    value: function categories() {
+      return _DomManager2.default.getTexts({ selector: '' });
+    }
+  }, {
+    key: 'actoress',
+    value: function actoress() {}
+  }, {
+    key: 'favoriteCount',
+    value: function favoriteCount() {
+      return Number(_DomManager2.default.getText({ selector: '.box-rank .tx-count > span' }));
+    }
   }]);
 
-  return DmmModel;
+  return ItemModel;
 }();
 
-exports.default = DmmModel;
+exports.default = ItemModel;
 
 /***/ }),
 /* 4 */
@@ -568,10 +581,37 @@ var DomManager = function () {
 
   _createClass(DomManager, null, [{
     key: "getText",
+
+    /**
+     * セレクタから取得したテキストを文字列返す
+     * @param selector
+     * @returns {String}
+     */
     value: function getText(_ref) {
       var selector = _ref.selector;
 
       return document.querySelectorAll(selector)[0].innerText.trim();
+    }
+
+    /**
+     * セレクタから取得したテキストを配列に格納して返す
+     * @param selector
+     * @returns {Array}
+     */
+
+  }, {
+    key: "getTexts",
+    value: function getTexts(_ref2) {
+      var selector = _ref2.selector;
+
+      var texts = document.querySelectorAll(selector);
+      var tempTexts = [];
+
+      Array.prototype.forEach.call(texts, function (text) {
+        tempTexts.push(text.innerText.trim());
+      });
+
+      return tempTexts;
     }
   }]);
 

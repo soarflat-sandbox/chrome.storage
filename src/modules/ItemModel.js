@@ -1,7 +1,7 @@
 import DomManager from '../common/DomManager';
 
-export default class DmmModel {
-  static getItemData({ itemKeysToGet }) {
+export default class ItemModel {
+  static get({ itemKeysToGet }) {
     const itemData = {};
 
     itemKeysToGet.forEach((itemKeyToGet) => {
@@ -17,5 +17,17 @@ export default class DmmModel {
 
   static title() {
     return DomManager.getText({ selector: '.ArticleMainHeader__title' });
+  }
+
+  static categories() {
+    return DomManager.getTexts({ selector: '' });
+  }
+
+  static actoress() {
+
+  }
+
+  static favoriteCount() {
+    return Number(DomManager.getText({ selector: '.box-rank .tx-count > span' }));
   }
 }
