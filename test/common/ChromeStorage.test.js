@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import chrome from 'sinon-chrome';
 import assert from 'assert';
 import ChromeStorage from '../../src/common/ChromeStorage';
