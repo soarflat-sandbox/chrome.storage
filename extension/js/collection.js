@@ -91,7 +91,7 @@ emitter.on('gotItems', function (items) {
   entity.dmmCollections = items.dmmCollections || [];
 
   var data = _ItemModel2.default.get({
-    itemKeysToGet: ['href', 'title']
+    itemKeys: ['href', 'title']
   });
 
   entity.dmmCollections.push(data);
@@ -519,12 +519,12 @@ var ItemModel = function () {
     value: function get(_ref) {
       var _this = this;
 
-      var itemKeysToGet = _ref.itemKeysToGet;
+      var itemKeys = _ref.itemKeys;
 
       var itemData = {};
 
-      itemKeysToGet.forEach(function (itemKeyToGet) {
-        itemData[itemKeyToGet] = _this[itemKeyToGet]();
+      itemKeys.forEach(function (itemKey) {
+        itemData[itemKey] = _this[itemKey]();
       });
 
       return itemData;

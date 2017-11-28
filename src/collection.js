@@ -11,7 +11,7 @@ emitter.on('gotItems', (items) => {
   entity.dmmCollections = items.dmmCollections || [];
 
   const data = ItemModel.get({
-    itemKeysToGet: ['href', 'title']
+    itemKeys: ['href', 'title']
   });
 
   entity.dmmCollections.push(data);
