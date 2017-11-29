@@ -91,8 +91,10 @@ emitter.on('gotItems', function (items) {
   entity.dmmCollections = items.dmmCollections || [];
 
   var data = _ItemModel2.default.get({
-    itemKeys: ['href', 'title']
+    itemKeys: ['href', 'title', 'categories', 'favoriteCount']
   });
+
+  console.log(data);
 
   entity.dmmCollections.push(data);
 
@@ -537,12 +539,19 @@ var ItemModel = function () {
   }, {
     key: 'title',
     value: function title() {
-      return _DomManager2.default.getText({ selector: '.ArticleMainHeader__title' });
+      return _DomManager2.default.getText({ selectors: '#title' });
     }
   }, {
     key: 'categories',
     value: function categories() {
-      return _DomManager2.default.getTexts({ selector: '' });
+      var trElement = _DomManager2.default.getElement({
+        selectors: '.box-rank + table > tbody > tr',
+        index: 10
+      });
+      return _DomManager2.default.getTexts({
+        element: trElement,
+        selectors: 'a'
+      });
     }
   }, {
     key: 'actoress',
@@ -550,7 +559,7 @@ var ItemModel = function () {
   }, {
     key: 'favoriteCount',
     value: function favoriteCount() {
-      return Number(_DomManager2.default.getText({ selector: '.box-rank .tx-count > span' }));
+      return Number(_DomManager2.default.getText({ selectors: '.box-rank .tx-count > span' }));
     }
   }]);
 
@@ -580,31 +589,60 @@ var DomManager = function () {
   }
 
   _createClass(DomManager, null, [{
-    key: "getText",
+    key: "getElement",
+
+    /**
+     * 複数のセレクタから指定したindexのNodeListを返す
+     * * @param element
+     * @param selectors
+     * @param index {Number} 取得したいNodeListのインデックス
+     * @returns {NodeList}
+     */
+    value: function getElement(_ref) {
+      var _ref$element = _ref.element,
+          element = _ref$element === undefined ? document : _ref$element,
+          selectors = _ref.selectors,
+          _ref$index = _ref.index,
+          index = _ref$index === undefined ? 0 : _ref$index;
+
+      return element.querySelectorAll(selectors)[index];
+    }
 
     /**
      * セレクタから取得したテキストを文字列返す
-     * @param selector
+     * @param element
+     * @param selectors
+     * @param index {Number} 取得したいNodeListのインデックス
      * @returns {String}
      */
-    value: function getText(_ref) {
-      var selector = _ref.selector;
 
-      return document.querySelectorAll(selector)[0].innerText.trim();
+  }, {
+    key: "getText",
+    value: function getText(_ref2) {
+      var _ref2$element = _ref2.element,
+          element = _ref2$element === undefined ? document : _ref2$element,
+          selectors = _ref2.selectors,
+          _ref2$index = _ref2.index,
+          index = _ref2$index === undefined ? 0 : _ref2$index;
+
+      return element.querySelectorAll(selectors)[index].innerText.trim();
     }
 
     /**
      * セレクタから取得したテキストを配列に格納して返す
-     * @param selector
+     * @param element
+     * @param selectors
      * @returns {Array}
      */
 
   }, {
     key: "getTexts",
-    value: function getTexts(_ref2) {
-      var selector = _ref2.selector;
+    value: function getTexts(_ref3) {
+      var _ref3$element = _ref3.element,
+          element = _ref3$element === undefined ? document : _ref3$element,
+          selectors = _ref3.selectors;
 
-      var texts = document.querySelectorAll(selector);
+      var texts = element.querySelectorAll(selectors);
       var tempTexts = [];
 
       Array.prototype.forEach.call(texts, function (text) {

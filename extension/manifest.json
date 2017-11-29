@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://qiita.com/*"
+        "http://www.dmm.co.jp/digital/videoa/-/detail/=/*"
       ],
       "js": [
         "js/collection.js"

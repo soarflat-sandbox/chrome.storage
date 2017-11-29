@@ -16,18 +16,24 @@ export default class ItemModel {
   }
 
   static title() {
-    return DomManager.getText({ selector: '.ArticleMainHeader__title' });
+    return DomManager.getText({ selectors: '#title' });
   }
 
   static categories() {
-    return DomManager.getTexts({ selector: '' });
+    const trElement = DomManager.getElement({
+      selectors: '.box-rank + table > tbody > tr',
+      index: 10
+    });
+    return DomManager.getTexts({
+      element: trElement,
+      selectors: 'a'
+    });
   }
 
   static actoress() {
-
   }
 
   static favoriteCount() {
-    return Number(DomManager.getText({ selector: '.box-rank .tx-count > span' }));
+    return Number(DomManager.getText({ selectors: '.box-rank .tx-count > span' }));
   }
 }
