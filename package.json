@@ -2,7 +2,7 @@
   "name": "chrome.storage",
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha test/**/*.js --compilers js:babel-core/register"
+    "test": "mocha test/*.js test/**/*.js --compilers js:babel-core/register"
   },
   "author": "soarflat",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "babel-register": "^6.26.0",
     "cross-env": "^5.0.5",
     "mocha": "^4.0.1",
+    "sinon": "^4.1.2",
     "sinon-chrome": "^2.2.1",
     "webpack": "^3.7.1",
     "webpack-dev-server": "^2.8.1"

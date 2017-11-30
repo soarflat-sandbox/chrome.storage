@@ -6,7 +6,16 @@ import DmmDomHandler from './modules/DmmDomHandler';
 const emitter = new EventEmitter();
 const keys = 'dmmItems';
 
-emitter.on('gotItems', (items) => {
+const init = () => {
+  ChromeStorage.get({
+    keys,
+    callback: (items) => {
+      emitter.emit('getItemsFromChromeStorage', items);
+    },
+  });
+};
+
+emitter.on('getItemsFromChromeStorage', (items) => {
   const options = [
     {
       key: 'href',
@@ -24,8 +33,12 @@ emitter.on('gotItems', (items) => {
   ];
   const data = Utils.mergeFunctionReturningData({ options });
   const entity = {};
-
   entity.dmmItems = items.dmmItems || [];
+
+  const index = entity.dmmItems.findIndex(obj => obj.href === data.href);
+  if (index > -1) {
+    entity.dmmItems.splice(index, 1)
+  }
   entity.dmmItems.push(data);
 
   ChromeStorage.set({
@@ -33,9 +46,4 @@ emitter.on('gotItems', (items) => {
   });
 });
 
-ChromeStorage.get({
-  keys,
-  callback: (items) => {
-    emitter.emit('gotItems', items);
-  },
-});
+init();

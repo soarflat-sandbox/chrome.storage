@@ -89,7 +89,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var emitter = new _events.EventEmitter();
 var keys = 'dmmItems';
 
-emitter.on('gotItems', function (items) {
+var init = function init() {
+  _ChromeStorage2.default.get({
+    keys: keys,
+    callback: function callback(items) {
+      emitter.emit('getItemsFromChromeStorage', items);
+    }
+  });
+};
+
+emitter.on('getItemsFromChromeStorage', function (items) {
   var options = [{
     key: 'href',
     get: _Utils2.default.getHref
@@ -105,8 +114,14 @@ emitter.on('gotItems', function (items) {
   }];
   var data = _Utils2.default.mergeFunctionReturningData({ options: options });
   var entity = {};
-
   entity.dmmItems = items.dmmItems || [];
+
+  var index = entity.dmmItems.findIndex(function (obj) {
+    return obj.href === data.href;
+  });
+  if (index > -1) {
+    entity.dmmItems.splice(index, 1);
+  }
   entity.dmmItems.push(data);
 
   _ChromeStorage2.default.set({
@@ -114,12 +129,7 @@ emitter.on('gotItems', function (items) {
   });
 });
 
-_ChromeStorage2.default.get({
-  keys: keys,
-  callback: function callback(items) {
-    emitter.emit('gotItems', items);
-  }
-});
+init();
 
 /***/ }),
 /* 1 */

@@ -19,5 +19,9 @@
         "js/item.js"
       ]
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "history.html",
+    "open_in_tab": true
+  }
 }
