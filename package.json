@@ -13,13 +13,20 @@
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
     "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
     "mocha": "^4.0.1",
+    "sass-loader": "^6.0.6",
     "sinon": "^4.1.2",
     "sinon-chrome": "^2.2.1",
+    "vue-loader": "^13.0.4",
+    "vue-template-compiler": "^2.5.6",
     "webpack": "^3.7.1",
     "webpack-dev-server": "^2.8.1"
   },
   "dependencies": {
-    "events": "^1.1.1"
+    "events": "^1.1.1",
+    "vue": "^2.5.6",
+    "vue-router": "^2.7.0",
+    "vuex": "^2.4.0"
   }
 }
