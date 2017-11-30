@@ -72,31 +72,42 @@
 
 var _events = __webpack_require__(1);
 
-var _ChromeStorage = __webpack_require__(2);
+var _Utils = __webpack_require__(2);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _ChromeStorage = __webpack_require__(3);
 
 var _ChromeStorage2 = _interopRequireDefault(_ChromeStorage);
 
-var _ItemModel = __webpack_require__(3);
+var _DmmDomHandler = __webpack_require__(4);
 
-var _ItemModel2 = _interopRequireDefault(_ItemModel);
+var _DmmDomHandler2 = _interopRequireDefault(_DmmDomHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var emitter = new _events.EventEmitter();
-var keys = 'dmmCollections';
+var keys = 'dmmItems';
 
 emitter.on('gotItems', function (items) {
+  var options = [{
+    key: 'href',
+    get: _Utils2.default.getHref
+  }, {
+    key: 'title',
+    get: _DmmDomHandler2.default.getTitle
+  }, {
+    key: 'categories',
+    get: _DmmDomHandler2.default.getCategories
+  }, {
+    key: 'favoriteCount',
+    get: _DmmDomHandler2.default.getFavoriteCount
+  }];
+  var data = _Utils2.default.mergeFunctionReturningData({ options: options });
   var entity = {};
 
-  entity.dmmCollections = items.dmmCollections || [];
-
-  var data = _ItemModel2.default.get({
-    itemKeys: ['href', 'title', 'categories', 'favoriteCount']
-  });
-
-  console.log(data);
-
-  entity.dmmCollections.push(data);
+  entity.dmmItems = items.dmmItems || [];
+  entity.dmmItems.push(data);
 
   _ChromeStorage2.default.set({
     items: entity
@@ -433,6 +444,51 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Utils = function () {
+  function Utils() {
+    _classCallCheck(this, Utils);
+  }
+
+  _createClass(Utils, null, [{
+    key: "getHref",
+    value: function getHref() {
+      return location.href;
+    }
+  }, {
+    key: "mergeFunctionReturningData",
+    value: function mergeFunctionReturningData(_ref) {
+      var options = _ref.options;
+
+      var data = {};
+
+      options.forEach(function (option) {
+        data[option.key] = option.get();
+      });
+
+      return data;
+    }
+  }]);
+
+  return Utils;
+}();
+
+exports.default = Utils;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var ChromeStorage = function () {
   function ChromeStorage() {
     _classCallCheck(this, ChromeStorage);
@@ -491,84 +547,6 @@ var ChromeStorage = function () {
 exports.default = ChromeStorage;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _DomManager = __webpack_require__(4);
-
-var _DomManager2 = _interopRequireDefault(_DomManager);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ItemModel = function () {
-  function ItemModel() {
-    _classCallCheck(this, ItemModel);
-  }
-
-  _createClass(ItemModel, null, [{
-    key: 'get',
-    value: function get(_ref) {
-      var _this = this;
-
-      var itemKeys = _ref.itemKeys;
-
-      var itemData = {};
-
-      itemKeys.forEach(function (itemKey) {
-        itemData[itemKey] = _this[itemKey]();
-      });
-
-      return itemData;
-    }
-  }, {
-    key: 'href',
-    value: function href() {
-      return location.href;
-    }
-  }, {
-    key: 'title',
-    value: function title() {
-      return _DomManager2.default.getText({ selectors: '#title' });
-    }
-  }, {
-    key: 'categories',
-    value: function categories() {
-      var trElement = _DomManager2.default.getElement({
-        selectors: '.box-rank + table > tbody > tr',
-        index: 10
-      });
-      return _DomManager2.default.getTexts({
-        element: trElement,
-        selectors: 'a'
-      });
-    }
-  }, {
-    key: 'actoress',
-    value: function actoress() {}
-  }, {
-    key: 'favoriteCount',
-    value: function favoriteCount() {
-      return Number(_DomManager2.default.getText({ selectors: '.box-rank .tx-count > span' }));
-    }
-  }]);
-
-  return ItemModel;
-}();
-
-exports.default = ItemModel;
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -581,18 +559,79 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _DomHandler = __webpack_require__(5);
+
+var _DomHandler2 = _interopRequireDefault(_DomHandler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var DomManager = function () {
-  function DomManager() {
-    _classCallCheck(this, DomManager);
+/**
+ * DMMの商品ページのDOMに対する処理要求に応じるメソッドを提供するクラス
+ */
+var DmmDomHandler = function () {
+  function DmmDomHandler() {
+    _classCallCheck(this, DmmDomHandler);
   }
 
-  _createClass(DomManager, null, [{
+  _createClass(DmmDomHandler, null, [{
+    key: 'getTitle',
+    value: function getTitle() {
+      return _DomHandler2.default.getText({ selectors: '#title' });
+    }
+  }, {
+    key: 'getCategories',
+    value: function getCategories() {
+      var element = document.querySelectorAll('.box-rank + table > tbody > tr')[10];
+      return _DomHandler2.default.getTexts({
+        element: element,
+        selectors: 'a'
+      });
+    }
+  }, {
+    key: 'getActoress',
+    value: function getActoress() {}
+  }, {
+    key: 'getFavoriteCount',
+    value: function getFavoriteCount() {
+      return Number(_DomHandler2.default.getText({ selectors: '.box-rank .tx-count > span' }));
+    }
+  }]);
+
+  return DmmDomHandler;
+}();
+
+exports.default = DmmDomHandler;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * DOMに対する汎用的な処理要求に応じるメソッドを提供するクラス
+ */
+var DomHandler = function () {
+  function DomHandler() {
+    _classCallCheck(this, DomHandler);
+  }
+
+  _createClass(DomHandler, null, [{
     key: "getElement",
 
     /**
-     * 複数のセレクタから指定したindexのNodeListを返す
+     * セレクタから指定したindexのNodeListを返す
      * * @param element
      * @param selectors
      * @param index {Number} 取得したいNodeListのインデックス
@@ -629,7 +668,7 @@ var DomManager = function () {
     }
 
     /**
-     * セレクタから取得したテキストを配列に格納して返す
+     * セレクタから取得した複数のテキストを配列に格納して返す
      * @param element
      * @param selectors
      * @returns {Array}
@@ -653,11 +692,11 @@ var DomManager = function () {
     }
   }]);
 
-  return DomManager;
+  return DomHandler;
 }();
 
-exports.default = DomManager;
+exports.default = DomHandler;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=collection.js.map
+//# sourceMappingURL=item.js.map

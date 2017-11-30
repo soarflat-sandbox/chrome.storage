@@ -12,5 +12,4 @@ export default class Utils {
 
     return data;
   }
-
 }

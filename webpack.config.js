@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'collection': './src/collection',
+    'item': './src/item',
   },
 
   output: {

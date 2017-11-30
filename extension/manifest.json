@@ -16,7 +16,7 @@
         "http://www.dmm.co.jp/digital/videoa/-/detail/=/*"
       ],
       "js": [
-        "js/collection.js"
+        "js/item.js"
       ]
     }
   ]
