@@ -6,8 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    added: [],
-    all: [
+    items: [
       {
         id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
         name: 'COBOL 101 vintage',
@@ -31,47 +30,24 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
 
   getters: {
-    allProducts: state => state.all,
-    getNumberOfProducts: state => (state.all) ? state.all.length : 0,
-    cartProducts: state => {
-      return state.added.map(({ id, quantity }) => {
-        const product = state.all.find(p => p.id === id);
-
-        return {
-          name: product.name,
-          price: product.price,
-          quantity
-        };
-      });
-    },
+    items: state => state.items,
   },
 
   mutations: {
-    [types.ADD_TO_CART](state, { id }) {
-      const record = state.added.find(p => p.id === id);
-
-      if (!record) {
-        state.added.push({
-          id,
-          quantity: 1,
-        });
-      } else {
-        record.quantity += 1;
-      }
-    },
-    [types.REMOVE_ALL](state) {
-      state.added = [];
-    },
+    [types.ADD_ITEM](state, { item }) {},
+    [types.REMOVE](state, { index }) {},
   },
 
   actions: {
-    addToCart({ commit }, product) {
-      commit(types.ADD_TO_CART, {
-        id: product.id,
+    addItem({ commit }, item) {
+      commit(types.ADD_ITEM, {
+        item,
       });
     },
-    removeAll({ commit }) {
-      commit(types.REMOVE_ALL);
+    remove({ commit }, index) {
+      commit(types.REMOVE, {
+        index
+      });
     },
   },
 });
