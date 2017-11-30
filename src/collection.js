@@ -1,22 +1,32 @@
 import { EventEmitter } from 'events';
+import Utils from './common/Utils';
 import ChromeStorage from './common/ChromeStorage';
-import ItemModel from './modules/ItemModel';
+import DmmDomHandler from './modules/DmmDomHandler';
 
 const emitter = new EventEmitter();
-const keys = 'dmmCollections';
+const keys = 'dmmItems';
 
 emitter.on('gotItems', (items) => {
-  let entity = {};
+  const options = [
+    {
+      key: 'href',
+      get: Utils.getHref,
+    }, {
+      key: 'title',
+      get: DmmDomHandler.getTitle,
+    }, {
+      key: 'categories',
+      get: DmmDomHandler.getCategories,
+    }, {
+      key: 'favoriteCount',
+      get: DmmDomHandler.getFavoriteCount,
+    }
+  ];
+  const data = Utils.mergeFunctionReturningData({ options });
+  const entity = {};
 
-  entity.dmmCollections = items.dmmCollections || [];
-
-  const data = ItemModel.get({
-    itemKeys: ['href', 'title', 'categories', 'favoriteCount'],
-  });
-
-  console.log(data);
-
-  entity.dmmCollections.push(data);
+  entity.dmmItems = items.dmmItems || [];
+  entity.dmmItems.push(data);
 
   ChromeStorage.set({
     items: entity,

@@ -1,6 +1,9 @@
-export default class DomManager {
+/**
+ * DOMに対する汎用的な処理要求に応じるメソッドを提供するクラス
+ */
+export default class DomHandler {
   /**
-   * 複数のセレクタから指定したindexのNodeListを返す
+   * セレクタから指定したindexのNodeListを返す
    * * @param element
    * @param selectors
    * @param index {Number} 取得したいNodeListのインデックス
@@ -22,7 +25,7 @@ export default class DomManager {
   }
 
   /**
-   * セレクタから取得したテキストを配列に格納して返す
+   * セレクタから取得した複数のテキストを配列に格納して返す
    * @param element
    * @param selectors
    * @returns {Array}
