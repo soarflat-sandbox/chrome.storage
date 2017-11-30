@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,66 +70,70 @@
 "use strict";
 
 
-var _events = __webpack_require__(1);
-
-var _Utils = __webpack_require__(2);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _ChromeStorage = __webpack_require__(3);
-
-var _ChromeStorage2 = _interopRequireDefault(_ChromeStorage);
-
-var _DmmDomHandler = __webpack_require__(4);
-
-var _DmmDomHandler2 = _interopRequireDefault(_DmmDomHandler);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var emitter = new _events.EventEmitter();
-var keys = 'dmmItems';
-
-var init = function init() {
-  _ChromeStorage2.default.get({
-    keys: keys,
-    callback: function callback(items) {
-      emitter.emit('getItemsFromChromeStorage', items);
-    }
-  });
-};
-
-emitter.on('getItemsFromChromeStorage', function (items) {
-  var options = [{
-    key: 'href',
-    get: _Utils2.default.getHref
-  }, {
-    key: 'title',
-    get: _DmmDomHandler2.default.getTitle
-  }, {
-    key: 'categories',
-    get: _DmmDomHandler2.default.getCategories
-  }, {
-    key: 'favoriteCount',
-    get: _DmmDomHandler2.default.getFavoriteCount
-  }];
-  var data = _Utils2.default.mergeFunctionReturningData({ options: options });
-  var entity = {};
-  entity.dmmItems = items.dmmItems || [];
-
-  var index = entity.dmmItems.findIndex(function (obj) {
-    return obj.href === data.href;
-  });
-  if (index > -1) {
-    entity.dmmItems.splice(index, 1);
-  }
-  entity.dmmItems.push(data);
-
-  _ChromeStorage2.default.set({
-    items: entity
-  });
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-init();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ChromeStorage = function () {
+  function ChromeStorage() {
+    _classCallCheck(this, ChromeStorage);
+  }
+
+  _createClass(ChromeStorage, null, [{
+    key: 'get',
+    value: function get(_ref) {
+      var _ref$storageArea = _ref.storageArea,
+          storageArea = _ref$storageArea === undefined ? 'local' : _ref$storageArea,
+          _ref$keys = _ref.keys,
+          keys = _ref$keys === undefined ? null : _ref$keys,
+          _ref$callback = _ref.callback,
+          callback = _ref$callback === undefined ? undefined : _ref$callback;
+
+      chrome.storage[storageArea].get(keys, function (items) {
+        if (typeof callback !== 'undefined') {
+          callback(items);
+        }
+      });
+    }
+  }, {
+    key: 'set',
+    value: function set(_ref2) {
+      var _ref2$storageArea = _ref2.storageArea,
+          storageArea = _ref2$storageArea === undefined ? 'local' : _ref2$storageArea,
+          items = _ref2.items,
+          _ref2$callback = _ref2.callback,
+          callback = _ref2$callback === undefined ? undefined : _ref2$callback;
+
+      chrome.storage[storageArea].set(items, function () {
+        if (typeof callback !== 'undefined') {
+          callback();
+        }
+      });
+    }
+  }, {
+    key: 'clear',
+    value: function clear(_ref3) {
+      var _ref3$storageArea = _ref3.storageArea,
+          storageArea = _ref3$storageArea === undefined ? 'local' : _ref3$storageArea,
+          _ref3$callback = _ref3.callback,
+          callback = _ref3$callback === undefined ? undefined : _ref3$callback;
+
+      chrome.storage[storageArea].clear(function () {
+        if (typeof callback !== 'undefined') {
+          callback();
+        }
+      });
+    }
+  }]);
+
+  return ChromeStorage;
+}();
+
+exports.default = ChromeStorage;
 
 /***/ }),
 /* 1 */
@@ -446,6 +450,74 @@ function isUndefined(arg) {
 "use strict";
 
 
+var _events = __webpack_require__(1);
+
+var _Utils = __webpack_require__(3);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _ChromeStorage = __webpack_require__(0);
+
+var _ChromeStorage2 = _interopRequireDefault(_ChromeStorage);
+
+var _DmmDomHandler = __webpack_require__(4);
+
+var _DmmDomHandler2 = _interopRequireDefault(_DmmDomHandler);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var emitter = new _events.EventEmitter();
+var keys = 'dmmItems';
+
+var init = function init() {
+  _ChromeStorage2.default.get({
+    keys: keys,
+    callback: function callback(items) {
+      emitter.emit('getItemsFromChromeStorage', items);
+    }
+  });
+};
+
+emitter.on('getItemsFromChromeStorage', function (items) {
+  var options = [{
+    key: 'href',
+    get: _Utils2.default.getHref
+  }, {
+    key: 'title',
+    get: _DmmDomHandler2.default.getTitle
+  }, {
+    key: 'categories',
+    get: _DmmDomHandler2.default.getCategories
+  }, {
+    key: 'favoriteCount',
+    get: _DmmDomHandler2.default.getFavoriteCount
+  }];
+  var data = _Utils2.default.mergeFunctionReturningData({ options: options });
+  var entity = {};
+  entity.dmmItems = items.dmmItems || [];
+
+  var index = entity.dmmItems.findIndex(function (obj) {
+    return obj.href === data.href;
+  });
+  if (index > -1) {
+    entity.dmmItems.splice(index, 1);
+  }
+  entity.dmmItems.push(data);
+
+  _ChromeStorage2.default.set({
+    items: entity
+  });
+});
+
+init();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -483,78 +555,6 @@ var Utils = function () {
 }();
 
 exports.default = Utils;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ChromeStorage = function () {
-  function ChromeStorage() {
-    _classCallCheck(this, ChromeStorage);
-  }
-
-  _createClass(ChromeStorage, null, [{
-    key: 'get',
-    value: function get(_ref) {
-      var _ref$storageArea = _ref.storageArea,
-          storageArea = _ref$storageArea === undefined ? 'local' : _ref$storageArea,
-          _ref$keys = _ref.keys,
-          keys = _ref$keys === undefined ? null : _ref$keys,
-          _ref$callback = _ref.callback,
-          callback = _ref$callback === undefined ? undefined : _ref$callback;
-
-      chrome.storage[storageArea].get(keys, function (items) {
-        if (typeof callback !== 'undefined') {
-          callback(items);
-        }
-      });
-    }
-  }, {
-    key: 'set',
-    value: function set(_ref2) {
-      var _ref2$storageArea = _ref2.storageArea,
-          storageArea = _ref2$storageArea === undefined ? 'local' : _ref2$storageArea,
-          items = _ref2.items,
-          _ref2$callback = _ref2.callback,
-          callback = _ref2$callback === undefined ? undefined : _ref2$callback;
-
-      chrome.storage[storageArea].set(items, function () {
-        if (typeof callback !== 'undefined') {
-          callback();
-        }
-      });
-    }
-  }, {
-    key: 'clear',
-    value: function clear(_ref3) {
-      var _ref3$storageArea = _ref3.storageArea,
-          storageArea = _ref3$storageArea === undefined ? 'local' : _ref3$storageArea,
-          _ref3$callback = _ref3.callback,
-          callback = _ref3$callback === undefined ? undefined : _ref3$callback;
-
-      chrome.storage[storageArea].clear(function () {
-        if (typeof callback !== 'undefined') {
-          callback();
-        }
-      });
-    }
-  }]);
-
-  return ChromeStorage;
-}();
-
-exports.default = ChromeStorage;
 
 /***/ }),
 /* 4 */
