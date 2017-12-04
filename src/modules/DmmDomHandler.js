@@ -16,7 +16,7 @@ export default class DmmDomHandler {
     });
   }
 
-  static getActoress() {
+  static getActress() {
   }
 
   static getFavoriteCount() {

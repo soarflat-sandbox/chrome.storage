@@ -16,7 +16,7 @@ const init = () => {
 };
 
 emitter.on('getItemsFromChromeStorage', (items) => {
-  const options = [
+  const functions = [
     {
       key: 'href',
       get: Utils.getHref,
@@ -31,7 +31,7 @@ emitter.on('getItemsFromChromeStorage', (items) => {
       get: DmmDomHandler.getFavoriteCount,
     }
   ];
-  const data = Utils.mergeFunctionReturningData({ options });
+  const data = Utils.mergeFunctionReturningData({ functions });
   const entity = {};
   entity.dmmItems = items.dmmItems || [];
 
