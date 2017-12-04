@@ -3256,8 +3256,7 @@ _vue2.default.use(_vuex2.default);
 
 exports.default = new _vuex2.default.Store({
   state: {
-    added: [],
-    all: [{
+    items: [{
       id: 'cc919e21-ae5b-5e1f-d023-c40ee669520c',
       name: 'COBOL 101 vintage',
       description: 'Learn COBOL with this vintage programming book',
@@ -3278,61 +3277,31 @@ exports.default = new _vuex2.default.Store({
   strict: process.env.NODE_ENV !== 'production',
 
   getters: {
-    allProducts: function allProducts(state) {
-      return state.all;
-    },
-    getNumberOfProducts: function getNumberOfProducts(state) {
-      return state.all ? state.all.length : 0;
-    },
-    cartProducts: function cartProducts(state) {
-      return state.added.map(function (_ref) {
-        var id = _ref.id,
-            quantity = _ref.quantity;
-
-        var product = state.all.find(function (p) {
-          return p.id === id;
-        });
-
-        return {
-          name: product.name,
-          price: product.price,
-          quantity: quantity
-        };
-      });
+    items: function items(state) {
+      return state.items;
     }
   },
 
-  mutations: (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_CART, function (state, _ref2) {
-    var id = _ref2.id;
-
-    var record = state.added.find(function (p) {
-      return p.id === id;
-    });
-
-    if (!record) {
-      state.added.push({
-        id: id,
-        quantity: 1
-      });
-    } else {
-      record.quantity += 1;
-    }
-  }), _defineProperty(_mutations, types.REMOVE_ALL, function (state) {
-    state.added = [];
+  mutations: (_mutations = {}, _defineProperty(_mutations, types.ADD_ITEM, function (state, _ref) {
+    var item = _ref.item;
+  }), _defineProperty(_mutations, types.REMOVE, function (state, _ref2) {
+    var index = _ref2.index;
   }), _mutations),
 
   actions: {
-    addToCart: function addToCart(_ref3, product) {
+    addItem: function addItem(_ref3, item) {
       var commit = _ref3.commit;
 
-      commit(types.ADD_TO_CART, {
-        id: product.id
+      commit(types.ADD_ITEM, {
+        item: item
       });
     },
-    removeAll: function removeAll(_ref4) {
+    remove: function remove(_ref4, index) {
       var commit = _ref4.commit;
 
-      commit(types.REMOVE_ALL);
+      commit(types.REMOVE, {
+        index: index
+      });
     }
   }
 });
@@ -4244,8 +4213,8 @@ var index_esm = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var ADD_TO_CART = exports.ADD_TO_CART = 'ADD_TO_CART';
-var REMOVE_ALL = exports.REMOVE_ALL = 'REMOVE_ALL';
+var ADD_ITEM = exports.ADD_ITEM = 'ADD_ITEM';
+var REMOVE = exports.REMOVE = 'REMOVE';
 
 /***/ }),
 /* 17 */

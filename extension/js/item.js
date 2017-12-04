@@ -103,9 +103,12 @@ var init = function init() {
 };
 
 emitter.on('getItemsFromChromeStorage', function (items) {
-  var options = [{
+  var functions = [{
     key: 'href',
     get: _Utils2.default.getHref
+  }, {
+    key: 'imageUrl',
+    get: _DmmDomHandler2.default.getImageUrl
   }, {
     key: 'title',
     get: _DmmDomHandler2.default.getTitle
@@ -113,12 +116,17 @@ emitter.on('getItemsFromChromeStorage', function (items) {
     key: 'categories',
     get: _DmmDomHandler2.default.getCategories
   }, {
+    key: 'actress',
+    get: _DmmDomHandler2.default.getActress
+  }, {
     key: 'favoriteCount',
     get: _DmmDomHandler2.default.getFavoriteCount
   }];
-  var data = _Utils2.default.mergeFunctionReturningData({ options: options });
+  var data = _Utils2.default.mergeFunctionsReturningData({ functions: functions });
   var entity = {};
   entity.dmmItems = items.dmmItems || [];
+
+  console.log(items.dmmItems);
 
   var index = entity.dmmItems.findIndex(function (obj) {
     return obj.href === data.href;
@@ -469,14 +477,14 @@ var Utils = function () {
       return location.href;
     }
   }, {
-    key: "mergeFunctionReturningData",
-    value: function mergeFunctionReturningData(_ref) {
-      var options = _ref.options;
+    key: "mergeFunctionsReturningData",
+    value: function mergeFunctionsReturningData(_ref) {
+      var functions = _ref.functions;
 
       var data = {};
 
-      options.forEach(function (option) {
-        data[option.key] = option.get();
+      functions.forEach(function (fn) {
+        data[fn.key] = fn.get();
       });
 
       return data;
@@ -595,6 +603,11 @@ var DmmDomHandler = function () {
       return _DomHandler2.default.getText({ selectors: '#title' });
     }
   }, {
+    key: 'getImageUrl',
+    value: function getImageUrl() {
+      return document.getElementById('sample-video').querySelectorAll('img')[0].src;
+    }
+  }, {
     key: 'getCategories',
     value: function getCategories() {
       var element = document.querySelectorAll('.box-rank + table > tbody > tr')[10];
@@ -604,8 +617,14 @@ var DmmDomHandler = function () {
       });
     }
   }, {
-    key: 'getActoress',
-    value: function getActoress() {}
+    key: 'getActress',
+    value: function getActress() {
+      var element = document.querySelectorAll('.box-rank + table > tbody > tr')[5];
+      return _DomHandler2.default.getTexts({
+        element: element,
+        selectors: 'a'
+      });
+    }
   }, {
     key: 'getFavoriteCount',
     value: function getFavoriteCount() {

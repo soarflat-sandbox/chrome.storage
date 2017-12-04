@@ -3,11 +3,11 @@ export default class Utils {
     return location.href;
   }
 
-  static mergeFunctionReturningData({ options }) {
+  static mergeFunctionsReturningData({ functions }) {
     const data = {};
 
-    options.forEach((option) => {
-      data[option.key] = option.get();
+    functions.forEach((fn) => {
+      data[fn.key] = fn.get();
     });
 
     return data;

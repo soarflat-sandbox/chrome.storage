@@ -21,19 +21,27 @@ emitter.on('getItemsFromChromeStorage', (items) => {
       key: 'href',
       get: Utils.getHref,
     }, {
+      key: 'imageUrl',
+      get: DmmDomHandler.getImageUrl,
+    }, {
       key: 'title',
       get: DmmDomHandler.getTitle,
     }, {
       key: 'categories',
       get: DmmDomHandler.getCategories,
     }, {
+      key: 'actress',
+      get: DmmDomHandler.getActress,
+    }, {
       key: 'favoriteCount',
       get: DmmDomHandler.getFavoriteCount,
     }
   ];
-  const data = Utils.mergeFunctionReturningData({ functions });
+  const data = Utils.mergeFunctionsReturningData({ functions });
   const entity = {};
   entity.dmmItems = items.dmmItems || [];
+
+  console.log(items.dmmItems);
 
   const index = entity.dmmItems.findIndex(obj => obj.href === data.href);
   if (index > -1) {
