@@ -5,7 +5,7 @@ import DomHandler from '../common/DomHandler';
  */
 export default class DmmDomHandler {
   static getTitle() {
-    return DomHandler.getText({ selectors: '#title' });
+    return document.querySelectorAll('#title')[0].innerText.trim();
   }
 
   static getImageUrl() {
@@ -32,6 +32,10 @@ export default class DmmDomHandler {
   }
 
   static getFavoriteCount() {
-    return Number(DomHandler.getText({ selectors: '.box-rank .tx-count > span' }));
+    return Number(document
+      .querySelectorAll('.box-rank .tx-count > span')[0]
+      .innerText
+      .trim()
+    );
   }
 }
