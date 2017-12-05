@@ -101,6 +101,13 @@
 
   .card-image {
     position: relative;
+
+    .image {
+      img {
+        height: 204px;
+        object-fit: cover;
+      }
+    }
   }
 
   .card-delete-button {
