@@ -29,8 +29,8 @@ const getItemData = () => {
       key: 'categories',
       get: DmmDomHandler.getCategories,
     }, {
-      key: 'actress',
-      get: DmmDomHandler.getActress,
+      key: 'actresses',
+      get: DmmDomHandler.getActresses,
     }, {
       key: 'favoriteCount',
       get: DmmDomHandler.getFavoriteCount,

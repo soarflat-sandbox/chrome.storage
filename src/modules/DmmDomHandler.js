@@ -40,7 +40,7 @@ export default class DmmDomHandler {
    * 出演女優を取得
    * @return {array}
    */
-  static getActress() {
+  static getActresses() {
     const element = document.querySelectorAll('.box-rank + table > tbody > tr')[5];
     return DomHandler.getTexts({
       element,

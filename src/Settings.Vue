@@ -1,7 +1,5 @@
 <template>
-  <div id="settings" class="container">
-    <h1>Settings</h1>
-
+  <div id="settings">
     <router-view></router-view>
   </div>
 </template>
