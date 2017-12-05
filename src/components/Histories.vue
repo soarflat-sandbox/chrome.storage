@@ -20,12 +20,12 @@
                   <i class="fa fa-heart has-text-danger" aria-hidden="true"></i>
                   <span>{{ item.favoriteCount }}</span>
                 </p>
-                <p v-show="item.categories | isCategories" class="subtitle is-7">カテゴリ</p>
-                <div v-show="item.categories | isCategories" class="tags">
+                <p v-show="item.categories.length > 0" class="subtitle is-7">カテゴリ</p>
+                <div v-show="item.categories.length > 0" class="tags">
                   <a v-for="category in item.categories" :href="category | categoryUrl" target="_blank" class="tag">{{ category }}</a>
                 </div>
-                <p v-show="item.actresses | isActresses" class="subtitle is-7">出演女優</p>
-                <div v-show="item.actresses | isActresses" class="tags">
+                <p v-show="item.actresses.length > 0" class="subtitle is-7">出演女優</p>
+                <div v-show="item.actresses.length > 0" class="tags">
                   <a v-for="actress in item.actresses" :href="actress | categoryUrl" target="_blank" class="tag">{{ actress }}</a>
                 </div>
               </div>
@@ -51,12 +51,6 @@
       categoryUrl(category) {
         return `https://qiita.com/tags/${category}`;
       },
-      isCategories(categories) {
-        return (categories.length > 0);
-      },
-      isActresses(actresses) {
-        return (actresses.length > 0);
-      },
     },
     methods: {
       update() {
@@ -72,7 +66,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .card-equal-height {
     display: flex;
     flex-direction: column;
@@ -88,6 +82,10 @@
     z-index: 9999;
     top: 5px;
     right: 5px;
-    background: rgba(255, 56, 96, .6)
+    background: rgba(255, 56, 96, .7);
+    transition: background 300ms;
+    &:hover {
+      background: rgba(255, 56, 96, .9);
+    }
   }
 </style>

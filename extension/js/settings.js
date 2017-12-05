@@ -4426,13 +4426,13 @@ var content = __webpack_require__(20);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(22)("67fbaa01", content, false);
+var update = __webpack_require__(22)("94789114", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e20208e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Histories.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e20208e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Histories.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e20208e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Histories.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e20208e\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Histories.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -4450,7 +4450,7 @@ exports = module.exports = __webpack_require__(21)(true);
 
 
 // module
-exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 9999;\n  top: 5px;\n  right: 5px;\n  background: rgba(255, 56, 96, .6)\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/src/components/Histories.vue?baab7b22"],"names":[],"mappings":";AA2EA;EACA,cAAA;EACA,uBAAA;EACA,aAAA;CACA;AAEA;EACA,mBAAA;CACA;AAEA;EACA,mBAAA;EACA,cAAA;EACA,SAAA;EACA,WAAA;EACA,iCAAA;CACA","file":"Histories.vue","sourcesContent":["<template>\n  <section class=\"section\">\n    <div id=\"histories\" class=\"container\">\n      <h1 class=\"title\">閲覧履歴</h1>\n      <div class=\"columns is-multiline\">\n        <div v-for=\"item in items\" class=\"column is-one-quarter\">\n          <div class=\"card card-equal-height\">\n            <div class=\"card-image card-relative\">\n              <button @click=\"removeItem(item)\" class=\"delete is-medium card-delete-button\"></button>\n              <figure class=\"image\">\n                <a :href=\"item.href\" target=\"_blank\">\n                  <img :src=\"item.imageUrl\">\n                </a>\n              </figure>\n            </div>\n            <div class=\"card-content\">\n              <p class=\"title is-size-6\"><a :href=\"item.href\" target=\"_blank\">{{ item.title }} </a></p>\n              <div class=\"content\">\n                <p>\n                  <i class=\"fa fa-heart has-text-danger\" aria-hidden=\"true\"></i>\n                  <span>{{ item.favoriteCount }}</span>\n                </p>\n                <p v-show=\"item.categories | isCategories\" class=\"subtitle is-7\">カテゴリ</p>\n                <div v-show=\"item.categories | isCategories\" class=\"tags\">\n                  <a v-for=\"category in item.categories\" :href=\"category | categoryUrl\" target=\"_blank\" class=\"tag\">{{ category }}</a>\n                </div>\n                <p v-show=\"item.actresses | isActresses\" class=\"subtitle is-7\">出演女優</p>\n                <div v-show=\"item.actresses | isActresses\" class=\"tags\">\n                  <a v-for=\"actress in item.actresses\" :href=\"actress | categoryUrl\" target=\"_blank\" class=\"tag\">{{ actress }}</a>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </section>\n</template>\n\n<script>\n  import { mapGetters, mapActions } from 'vuex';\n\n  export default {\n    name: 'histories',\n    computed: {\n      ...mapGetters({\n        items: 'allItems',\n      }),\n    },\n    filters: {\n      categoryUrl(category) {\n        return `https://qiita.com/tags/${category}`;\n      },\n      isCategories(categories) {\n        return (categories.length > 0);\n      },\n      isActresses(actresses) {\n        return (actresses.length > 0);\n      },\n    },\n    methods: {\n      update() {\n//        chrome.storage.local.get('dmmItems', (items) => {\n//          this.items = items.dmmItems;\n//        });\n      },\n      ...mapActions(['removeItem']),\n    },\n    created() {\n      this.update();\n    }\n  }\n</script>\n\n<style scoped>\n  .card-equal-height {\n    display: flex;\n    flex-direction: column;\n    height: 100%;\n  }\n\n  .card-relative {\n    position: relative;\n  }\n\n  .card-delete-button {\n    position: absolute;\n    z-index: 9999;\n    top: 5px;\n    right: 5px;\n    background: rgba(255, 56, 96, .6)\n  }\n</style>\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 9999;\n  top: 5px;\n  right: 5px;\n  background: rgba(255, 56, 96, 0.7);\n  transition: background 300ms;\n}\n.card-delete-button[data-v-1e20208e]:hover {\n    background: rgba(255, 56, 96, 0.9);\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/Histories.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;EACd,uBAAuB;EACvB,aAAa;CAAE;AAEjB;EACE,mBAAmB;CAAE;AAEvB;EACE,mBAAmB;EACnB,cAAc;EACd,SAAS;EACT,WAAW;EACX,mCAAmC;EACnC,6BAA6B;CAAE;AAC/B;IACE,mCAAmC;CAAE","file":"Histories.vue","sourcesContent":[".card-equal-height {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.card-relative {\n  position: relative; }\n\n.card-delete-button {\n  position: absolute;\n  z-index: 9999;\n  top: 5px;\n  right: 5px;\n  background: rgba(255, 56, 96, 0.7);\n  transition: background 300ms; }\n  .card-delete-button:hover {\n    background: rgba(255, 56, 96, 0.9); }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -4852,12 +4852,6 @@ exports.default = {
   filters: {
     categoryUrl: function categoryUrl(category) {
       return 'https://qiita.com/tags/' + category;
-    },
-    isCategories: function isCategories(categories) {
-      return categories.length > 0;
-    },
-    isActresses: function isActresses(actresses) {
-      return actresses.length > 0;
     }
   },
   methods: _extends({
@@ -4934,16 +4928,16 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: (item.categories | _vm.isCategories),
-        expression: "item.categories | isCategories"
+        value: (item.categories.length > 0),
+        expression: "item.categories.length > 0"
       }],
       staticClass: "subtitle is-7"
     }, [_vm._v("カテゴリ")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: (item.categories | _vm.isCategories),
-        expression: "item.categories | isCategories"
+        value: (item.categories.length > 0),
+        expression: "item.categories.length > 0"
       }],
       staticClass: "tags"
     }, _vm._l((item.categories), function(category) {
@@ -4958,16 +4952,16 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: (item.actresses | _vm.isActresses),
-        expression: "item.actresses | isActresses"
+        value: (item.actresses.length > 0),
+        expression: "item.actresses.length > 0"
       }],
       staticClass: "subtitle is-7"
     }, [_vm._v("出演女優")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: (item.actresses | _vm.isActresses),
-        expression: "item.actresses | isActresses"
+        value: (item.actresses.length > 0),
+        expression: "item.actresses.length > 0"
       }],
       staticClass: "tags"
     }, _vm._l((item.actresses), function(actress) {
