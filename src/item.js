@@ -5,18 +5,20 @@ const init = () => {
   const keys = 'dmmItems';
 
   chrome.storage.local.get(keys, (items) => {
+    let entity = {};
     const newItem = getItemData();
-    const updatedItems = updateItems(items, newItem);
+    entity.dmmItems = updateItems(items, newItem);
 
-    console.log(updatedItems);
-
-    chrome.storage.local.set(updatedItems);
+    chrome.storage.local.set(entity);
   });
 };
 
 const getItemData = () => {
   const functions = [
     {
+      key: 'id',
+      get: Utils.getId,
+    }, {
       key: 'href',
       get: Utils.getHref,
     }, {
@@ -41,15 +43,16 @@ const getItemData = () => {
 };
 
 const updateItems = (items, newItem) => {
-  const entity = {};
-  entity.dmmItems = items.dmmItems || [];
-  const index = entity.dmmItems.findIndex(obj => obj.href === newItem.href);
+  const dmmItems = items.dmmItems || [];
+  const index = dmmItems.findIndex(obj => obj.id === newItem.id);
 
   if (index > -1) {
-    entity.dmmItems.splice(index, 1)
+    dmmItems.splice(index, 1)
   }
 
-  return entity.dmmItems.push(data);
+  dmmItems.unshift(newItem);
+
+  return dmmItems;
 };
 
 init();

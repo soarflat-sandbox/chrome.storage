@@ -17,7 +17,7 @@
           <div class="navbar-item is-expanded">
             <div class="field is-grouped">
               <p class="control has-icons-left">
-                <input v-on:input="searchItems($event.target.value)" class="input" type="text" placeholder="search">
+                <input v-on:input="search($event.target.value)" class="input" type="text" placeholder="search">
                 <span class="icon is-small is-left">
                   <i class="fa fa-search"></i>
                 </span>
@@ -31,7 +31,9 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import {
+    mapGetters, mapActions
+  } from 'vuex';
   import throttle from 'throttle-debounce/throttle';
 
   export default {
@@ -43,6 +45,9 @@
     },
     methods: {
       ...mapActions(['searchItems']),
+      search: throttle(300, function (value) {
+        this.searchItems(value);
+      }),
     },
   }
 </script>

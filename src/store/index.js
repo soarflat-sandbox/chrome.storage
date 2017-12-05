@@ -85,11 +85,15 @@ export default new Vuex.Store({
   // ミューテーションは同期的でなければならないため非同期をしたいのであれば
   // アクションを利用する
   mutations: {
-    [types.REMOVE_ITEM](state, { url }) {
-      const index = state.items.findIndex(item => item.href === url);
+    [types.SET_ITEMS](state, { items }) {
+      state.items = items;
+    },
+    [types.REMOVE_ITEM](state, { id }) {
+      const index = state.items.findIndex(item => item.id === id);
 
       if (index > -1) {
-        state.items.splice(index, 1)
+        state.items.splice(index, 1);
+        chrome.storage.local.set({ dmmItems: state.items });
       }
     },
     [types.SEARCH_ITEMS](state, { keywords }) {
@@ -112,9 +116,14 @@ export default new Vuex.Store({
   // そのためミューテーションが存在しなければ、状態は変更できない
   // それぞれのアクションはADD_TO_CARTとREMOVE_ALLのミューテションをコミットする
   actions: {
+    setItems({ commit }, items) {
+      commit(types.SET_ITEMS, {
+        items
+      });
+    },
     removeItem({ commit }, item) {
       commit(types.REMOVE_ITEM, {
-        url: item.href
+        id: item.id
       });
     },
     searchItems({ commit }, keywords) {

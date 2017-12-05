@@ -60,26 +60,96 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Utils = __webpack_require__(6);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Utils = function () {
+  function Utils() {
+    _classCallCheck(this, Utils);
+  }
+
+  _createClass(Utils, null, [{
+    key: 'getHref',
+    value: function getHref() {
+      return location.href;
+    }
+  }, {
+    key: 'getId',
+    value: function getId() {
+      return location.href.match(/cid=(\d|[a-z])+/g)[0].replace('cid=', '');
+    }
+  }, {
+    key: 'mergeFunctionsReturningData',
+    value: function mergeFunctionsReturningData(_ref) {
+      var functions = _ref.functions;
+
+      var data = {};
+
+      functions.forEach(function (fn) {
+        data[fn.key] = fn.get();
+      });
+
+      return data;
+    }
+  }, {
+    key: 'matchKeywords',
+    value: function matchKeywords(_ref2) {
+      var keywords = _ref2.keywords,
+          text = _ref2.text;
+
+      var matches = [];
+
+      for (var i = 0; i < keywords.length; i += 1) {
+        if (text.indexOf(keywords[i]) !== -1) {
+          matches.push(keywords[i]);
+        } else {
+          break;
+        }
+      }
+
+      return matches.length === keywords.length;
+    }
+  }]);
+
+  return Utils;
+}();
+
+exports.default = Utils;
+
+/***/ }),
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Utils = __webpack_require__(1);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _DmmDomHandler = __webpack_require__(7);
+var _DmmDomHandler = __webpack_require__(9);
 
 var _DmmDomHandler2 = _interopRequireDefault(_DmmDomHandler);
 
@@ -89,17 +159,19 @@ var init = function init() {
   var keys = 'dmmItems';
 
   chrome.storage.local.get(keys, function (items) {
+    var entity = {};
     var newItem = getItemData();
-    var updatedItems = updateItems(items, newItem);
+    entity.dmmItems = updateItems(items, newItem);
 
-    console.log(updatedItems);
-
-    chrome.storage.local.set(updatedItems);
+    chrome.storage.local.set(entity);
   });
 };
 
 var getItemData = function getItemData() {
   var functions = [{
+    key: 'id',
+    get: _Utils2.default.getId
+  }, {
     key: 'href',
     get: _Utils2.default.getHref
   }, {
@@ -123,23 +195,24 @@ var getItemData = function getItemData() {
 };
 
 var updateItems = function updateItems(items, newItem) {
-  var entity = {};
-  entity.dmmItems = items.dmmItems || [];
-  var index = entity.dmmItems.findIndex(function (obj) {
-    return obj.href === newItem.href;
+  var dmmItems = items.dmmItems || [];
+  var index = dmmItems.findIndex(function (obj) {
+    return obj.id === newItem.id;
   });
 
   if (index > -1) {
-    entity.dmmItems.splice(index, 1);
+    dmmItems.splice(index, 1);
   }
 
-  return entity.dmmItems.push(data);
+  dmmItems.unshift(newItem);
+
+  return dmmItems;
 };
 
 init();
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -151,62 +224,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Utils = function () {
-  function Utils() {
-    _classCallCheck(this, Utils);
-  }
-
-  _createClass(Utils, null, [{
-    key: "getHref",
-    value: function getHref() {
-      return location.href;
-    }
-  }, {
-    key: "mergeFunctionsReturningData",
-    value: function mergeFunctionsReturningData(_ref) {
-      var functions = _ref.functions;
-
-      var data = {};
-
-      functions.forEach(function (fn) {
-        data[fn.key] = fn.get();
-      });
-
-      return data;
-    }
-  }, {
-    key: "matchKeywords",
-    value: function matchKeywords(_ref2) {
-      var keywords = _ref2.keywords,
-          text = _ref2.text;
-
-      return keywords.filter(function (keyword) {
-        return text !== -1;
-      }).length === keywords.length;
-    }
-  }]);
-
-  return Utils;
-}();
-
-exports.default = Utils;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _DomHandler = __webpack_require__(8);
+var _DomHandler = __webpack_require__(10);
 
 var _DomHandler2 = _interopRequireDefault(_DomHandler);
 
@@ -293,7 +311,7 @@ var DmmDomHandler = function () {
 exports.default = DmmDomHandler;
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

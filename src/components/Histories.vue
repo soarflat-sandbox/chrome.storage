@@ -3,21 +3,23 @@
     <div id="histories" class="container">
       <div class="columns is-multiline">
 
-        <div v-for="item in items" class="column is-one-quarter">
+        <div v-for="item in items" class="column is-one-third">
           <div class="card card-equal-height">
-            <div class="card-image card-relative">
+            <div class="card-image">
               <button @click="removeItem(item)" class="delete is-medium card-delete-button"></button>
               <figure class="image">
                 <a :href="item.href" target="_blank">
-                  <img :src="item.imageUrl">
+                  <img :src="item.imageUrl | imageUrl">
                 </a>
               </figure>
             </div>
             <div class="card-content">
-              <p class="title is-size-6"><a :href="item.href" target="_blank">{{ item.title }} </a></p>
+              <p class="title">
+                <a :href="item.href" target="_blank">{{ item.title }} </a>
+              </p>
               <div class="content">
                 <p>
-                  <i class="fa fa-heart has-text-danger" aria-hidden="true"></i>
+                  <i class="fa fa-heart has-text-danger"></i>
                   <span>{{ item.favoriteCount }}</span>
                 </p>
                 <p v-show="item.categories.length > 0" class="subtitle is-7 has-text-weight-semibold">カテゴリ</p>
@@ -38,7 +40,9 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import {
+    mapGetters, mapActions
+  } from 'vuex';
 
   export default {
     name: 'histories',
@@ -52,16 +56,19 @@
     },
     filters: {
       categoryUrl(category) {
-        return `https://qiita.com/tags/${category}`;
+        return `http://www.dmm.co.jp/search/=/searchstr=${category}/analyze=V1EBDlcEUQQ_/limit=120/n1=FgRCTw9VBA4GAVhfWkIHWw__/n2=Aw1fVhQKX1ZRAlhMUlo5QQgBU1lR/sort=ranking/`;
       },
+      imageUrl(imageUrl) {
+        return imageUrl.replace(/ps.jpg$/g, 'pl.jpg');
+      }
     },
     methods: {
       update() {
-//        chrome.storage.local.get('dmmItems', (items) => {
-//          this.items = items.dmmItems;
-//        });
+        chrome.storage.local.get('dmmItems', (items) => {
+          this.setItems(items.dmmItems);
+        });
       },
-      ...mapActions(['removeItem']),
+      ...mapActions(['removeItem', 'setItems']),
     },
     created() {
       this.update();
@@ -76,7 +83,16 @@
     height: 100%;
   }
 
-  .card-relative {
+  .card-content {
+    padding: 15px;
+
+    .title {
+      font-size: 13px;
+      line-height: 1.3rem;
+    }
+  }
+
+  .card-image {
     position: relative;
   }
 
