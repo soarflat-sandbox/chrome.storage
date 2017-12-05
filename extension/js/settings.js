@@ -1287,7 +1287,61 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 5 */,
-/* 6 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Utils = function () {
+  function Utils() {
+    _classCallCheck(this, Utils);
+  }
+
+  _createClass(Utils, null, [{
+    key: "getHref",
+    value: function getHref() {
+      return location.href;
+    }
+  }, {
+    key: "mergeFunctionsReturningData",
+    value: function mergeFunctionsReturningData(_ref) {
+      var functions = _ref.functions;
+
+      var data = {};
+
+      functions.forEach(function (fn) {
+        data[fn.key] = fn.get();
+      });
+
+      return data;
+    }
+  }, {
+    key: "matchKeywords",
+    value: function matchKeywords(_ref2) {
+      var keywords = _ref2.keywords,
+          text = _ref2.text;
+
+      return keywords.filter(function (keyword) {
+        return text !== -1;
+      }).length === keywords.length;
+    }
+  }]);
+
+  return Utils;
+}();
+
+exports.default = Utils;
+
+/***/ }),
 /* 7 */,
 /* 8 */,
 /* 9 */
@@ -4126,6 +4180,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _mutations;
+
 var _vue = __webpack_require__(1);
 
 var _vue2 = _interopRequireDefault(_vue);
@@ -4137,6 +4193,10 @@ var _vuex2 = _interopRequireDefault(_vuex);
 var _mutationTypes = __webpack_require__(14);
 
 var types = _interopRequireWildcard(_mutationTypes);
+
+var _Utils = __webpack_require__(6);
+
+var _Utils2 = _interopRequireDefault(_Utils);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -4190,7 +4250,8 @@ exports.default = new _vuex2.default.Store({
       favoriteCount: 7824,
       categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
       actresses: []
-    }]
+    }],
+    searchedItems: []
   },
 
   strict: process.env.NODE_ENV !== 'production',
@@ -4200,6 +4261,9 @@ exports.default = new _vuex2.default.Store({
   getters: {
     allItems: function allItems(state) {
       return state.items;
+    },
+    searchedItems: function searchedItems(state) {
+      return state.searchedItems;
     }
     // getNumberOfProducts: state => (state.all) ? state.all.length : 0,
     // cartProducts: state => {
@@ -4223,28 +4287,47 @@ exports.default = new _vuex2.default.Store({
   // 何のミューテーションが可能であるかを一目見ただけで理解できるようにする
   // ミューテーションは同期的でなければならないため非同期をしたいのであれば
   // アクションを利用する
-  mutations: _defineProperty({}, types.REMOVE_ITEM, function (state, _ref) {
+  mutations: (_mutations = {}, _defineProperty(_mutations, types.REMOVE_ITEM, function (state, _ref) {
     var url = _ref.url;
 
     var index = state.items.findIndex(function (item) {
       return item.href === url;
     });
-    console.log(index);
 
     if (index > -1) {
       state.items.splice(index, 1);
     }
-  }),
+  }), _defineProperty(_mutations, types.SEARCH_ITEMS, function (state, _ref2) {
+    var keywords = _ref2.keywords;
+
+    if (keywords === '') {
+      state.searchedItems = [];
+    } else {
+      state.searchedItems = state.items.filter(function (item) {
+        return _Utils2.default.matchKeywords({
+          keywords: keywords.split(' '),
+          text: item.title
+        });
+      });
+    }
+  }), _mutations),
 
   // アクションは、状態を変更するのではなく、ミューテーションをコミットするもの
   // そのためミューテーションが存在しなければ、状態は変更できない
   // それぞれのアクションはADD_TO_CARTとREMOVE_ALLのミューテションをコミットする
   actions: {
-    removeItem: function removeItem(_ref2, item) {
-      var commit = _ref2.commit;
+    removeItem: function removeItem(_ref3, item) {
+      var commit = _ref3.commit;
 
       commit(types.REMOVE_ITEM, {
         url: item.href
+      });
+    },
+    searchItems: function searchItems(_ref4, keywords) {
+      var commit = _ref4.commit;
+
+      commit(types.SEARCH_ITEMS, {
+        keywords: keywords
       });
     }
   }
@@ -4262,6 +4345,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var REMOVE_ITEM = exports.REMOVE_ITEM = 'REMOVE_ITEM';
+var SEARCH_ITEMS = exports.SEARCH_ITEMS = 'SEARCH_ITEMS';
 
 /***/ }),
 /* 15 */
@@ -4460,7 +4544,7 @@ exports = module.exports = __webpack_require__(21)(true);
 
 
 // module
-exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 9999;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms;\n}\n.card-delete-button[data-v-1e20208e]:hover {\n    background: rgba(255, 56, 96, 0.8);\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/Histories.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;EACd,uBAAuB;EACvB,aAAa;CAAE;AAEjB;EACE,mBAAmB;CAAE;AAEvB;EACE,mBAAmB;EACnB,cAAc;EACd,WAAW;EACX,aAAa;EACb,oBAAoB;EACpB,sBAAsB;CAAE;AACxB;IACE,mCAAmC;CAAE","file":"Histories.vue","sourcesContent":[".card-equal-height {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.card-relative {\n  position: relative; }\n\n.card-delete-button {\n  position: absolute;\n  z-index: 9999;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms; }\n  .card-delete-button:hover {\n    background: rgba(255, 56, 96, 0.8); }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 2;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms;\n}\n.card-delete-button[data-v-1e20208e]:hover {\n    background: rgba(255, 56, 96, 0.8);\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/Histories.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;EACd,uBAAuB;EACvB,aAAa;CAAE;AAEjB;EACE,mBAAmB;CAAE;AAEvB;EACE,mBAAmB;EACnB,WAAW;EACX,WAAW;EACX,aAAa;EACb,oBAAoB;EACpB,sBAAsB;CAAE;AACxB;IACE,mCAAmC;CAAE","file":"Histories.vue","sourcesContent":[".card-equal-height {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.card-relative {\n  position: relative; }\n\n.card-delete-button {\n  position: absolute;\n  z-index: 2;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms; }\n  .card-delete-button:hover {\n    background: rgba(255, 56, 96, 0.8); }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -4850,14 +4934,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 var _vuex = __webpack_require__(3);
 
 exports.default = {
   name: 'histories',
-  computed: _extends({}, (0, _vuex.mapGetters)({
-    items: 'allItems'
-  })),
+  computed: _extends({}, (0, _vuex.mapGetters)(['allItems', 'searchedItems']), {
+    items: function items() {
+      return this.searchedItems.length > 0 ? this.searchedItems : this.allItems;
+    }
+  }),
   filters: {
     categoryUrl: function categoryUrl(category) {
       return 'https://qiita.com/tags/' + category;
@@ -5134,11 +5221,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _vuex = __webpack_require__(3);
 
+var _throttle = __webpack_require__(31);
+
+var _throttle2 = _interopRequireDefault(_throttle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
   name: 'navBar',
   computed: _extends({}, (0, _vuex.mapGetters)({
     items: 'allItems'
-  }))
+  })),
+  methods: _extends({}, (0, _vuex.mapActions)(['searchItems']))
 };
 
 /***/ }),
@@ -5147,14 +5241,35 @@ exports.default = {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0, false, false)
-}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('nav', {
-    staticClass: "navbar is-transparent"
+    staticClass: "navbar is-transparent is-fixed-top"
   }, [_c('div', {
     staticClass: "container"
+  }, [_vm._m(0, false, false), _vm._v(" "), _c('div', {
+    staticClass: "navbar-menu"
+  }, [_vm._m(1, false, false), _vm._v(" "), _c('div', {
+    staticClass: "navbar-end"
   }, [_c('div', {
+    staticClass: "navbar-item is-expanded"
+  }, [_c('div', {
+    staticClass: "field is-grouped"
+  }, [_c('p', {
+    staticClass: "control has-icons-left"
+  }, [_c('input', {
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "placeholder": "search"
+    },
+    on: {
+      "input": function($event) {
+        _vm.searchItems($event.target.value)
+      }
+    }
+  }), _vm._v(" "), _vm._m(2, false, false)])])])])])])])
+}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "navbar-brand"
   }, [_c('a', {
     staticClass: "navbar-item",
@@ -5168,12 +5283,9 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
       "width": "112",
       "height": "28"
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "navbar-menu",
-    attrs: {
-      "id": "navbarExampleTransparentExample"
-    }
-  }, [_c('div', {
+  })])])
+},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "navbar-start"
   }, [_c('a', {
     staticClass: "navbar-item",
@@ -5185,25 +5297,13 @@ var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _
     attrs: {
       "href": "https://bulma.io/"
     }
-  }, [_vm._v("閲覧履歴")])]), _vm._v(" "), _c('div', {
-    staticClass: "navbar-end"
-  }, [_c('div', {
-    staticClass: "navbar-item"
-  }, [_c('div', {
-    staticClass: "field"
-  }, [_c('p', {
-    staticClass: "control has-icons-left has-icons-right"
-  }, [_c('input', {
-    staticClass: "input",
-    attrs: {
-      "type": "email",
-      "placeholder": "search"
-    }
-  }), _vm._v(" "), _c('span', {
+  }, [_vm._v("閲覧履歴")])])
+},function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
     staticClass: "icon is-small is-left"
   }, [_c('i', {
     staticClass: "fa fa-search"
-  })])])])])])])])])
+  })])
 }]
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
@@ -5214,6 +5314,103 @@ if (false) {
      require("vue-hot-reload-api").rerender("data-v-05f2fe44", esExports)
   }
 }
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+/* eslint-disable no-undefined,no-param-reassign,no-shadow */
+
+/**
+ * Throttle execution of a function. Especially useful for rate limiting
+ * execution of handlers on events like resize and scroll.
+ *
+ * @param  {Number}    delay          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
+ * @param  {Boolean}   noTrailing     Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
+ *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
+ *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
+ *                                    the internal counter is reset)
+ * @param  {Function}  callback       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
+ *                                    to `callback` when the throttled-function is executed.
+ * @param  {Boolean}   debounceMode   If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
+ *                                    schedule `callback` to execute after `delay` ms.
+ *
+ * @return {Function}  A new, throttled, function.
+ */
+module.exports = function ( delay, noTrailing, callback, debounceMode ) {
+
+	// After wrapper has stopped being called, this timeout ensures that
+	// `callback` is executed at the proper times in `throttle` and `end`
+	// debounce modes.
+	var timeoutID;
+
+	// Keep track of the last time `callback` was executed.
+	var lastExec = 0;
+
+	// `noTrailing` defaults to falsy.
+	if ( typeof noTrailing !== 'boolean' ) {
+		debounceMode = callback;
+		callback = noTrailing;
+		noTrailing = undefined;
+	}
+
+	// The `wrapper` function encapsulates all of the throttling / debouncing
+	// functionality and when executed will limit the rate at which `callback`
+	// is executed.
+	function wrapper () {
+
+		var self = this;
+		var elapsed = Number(new Date()) - lastExec;
+		var args = arguments;
+
+		// Execute `callback` and update the `lastExec` timestamp.
+		function exec () {
+			lastExec = Number(new Date());
+			callback.apply(self, args);
+		}
+
+		// If `debounceMode` is true (at begin) this is used to clear the flag
+		// to allow future `callback` executions.
+		function clear () {
+			timeoutID = undefined;
+		}
+
+		if ( debounceMode && !timeoutID ) {
+			// Since `wrapper` is being called for the first time and
+			// `debounceMode` is true (at begin), execute `callback`.
+			exec();
+		}
+
+		// Clear any existing timeout.
+		if ( timeoutID ) {
+			clearTimeout(timeoutID);
+		}
+
+		if ( debounceMode === undefined && elapsed > delay ) {
+			// In throttle mode, if `delay` time has been exceeded, execute
+			// `callback`.
+			exec();
+
+		} else if ( noTrailing !== true ) {
+			// In trailing throttle mode, since `delay` time has not been
+			// exceeded, schedule `callback` to execute `delay` ms after most
+			// recent execution.
+			//
+			// If `debounceMode` is true (at begin), schedule `clear` to execute
+			// after `delay` ms.
+			//
+			// If `debounceMode` is false (at end), schedule `callback` to
+			// execute after `delay` ms.
+			timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
+		}
+
+	}
+
+	// Return the wrapper function.
+	return wrapper;
+
+};
+
 
 /***/ })
 /******/ ]);

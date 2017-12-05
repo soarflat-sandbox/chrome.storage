@@ -12,4 +12,10 @@ export default class Utils {
 
     return data;
   }
+
+  static matchKeywords({ keywords, text }) {
+    return (keywords
+      .filter(keyword => text !== -1)
+      .length === keywords.length);
+  }
 }

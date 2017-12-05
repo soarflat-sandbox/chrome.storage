@@ -2,6 +2,7 @@
   <section class="section">
     <div id="histories" class="container">
       <div class="columns is-multiline">
+
         <div v-for="item in items" class="column is-one-quarter">
           <div class="card card-equal-height">
             <div class="card-image card-relative">
@@ -42,9 +43,12 @@
   export default {
     name: 'histories',
     computed: {
-      ...mapGetters({
-        items: 'allItems',
-      }),
+      ...mapGetters(['allItems', 'searchedItems']),
+      items() {
+        return (this.searchedItems.length > 0)
+          ? this.searchedItems
+          : this.allItems;
+      }
     },
     filters: {
       categoryUrl(category) {
@@ -78,7 +82,7 @@
 
   .card-delete-button {
     position: absolute;
-    z-index: 9999;
+    z-index: 2;
     top: -10px;
     right: -10px;
     background: rgba(255, 56, 96, 1);

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as types from './mutation-types';
+import Utils from '../common/Utils';
 
 Vue.use(Vuex);
 
@@ -51,6 +52,7 @@ export default new Vuex.Store({
         actresses: []
       },
     ],
+    searchedItems: [],
   },
 
   strict: process.env.NODE_ENV !== 'production',
@@ -59,6 +61,7 @@ export default new Vuex.Store({
   // ゲッターは第1引数としてstateを受け取る
   getters: {
     allItems: state => state.items,
+    searchedItems: state => state.searchedItems,
     // getNumberOfProducts: state => (state.all) ? state.all.length : 0,
     // cartProducts: state => {
     //   return state.added.map(({ id, quantity }) => {
@@ -84,10 +87,23 @@ export default new Vuex.Store({
   mutations: {
     [types.REMOVE_ITEM](state, { url }) {
       const index = state.items.findIndex(item => item.href === url);
-      console.log(index);
 
       if (index > -1) {
         state.items.splice(index, 1)
+      }
+    },
+    [types.SEARCH_ITEMS](state, { keywords }) {
+      if (keywords === '') {
+        state.searchedItems = [];
+      } else {
+        state.searchedItems = state.items.filter((item) => {
+          return (
+            Utils.matchKeywords({
+              keywords: keywords.split(' '),
+              text: item.title
+            })
+          );
+        });
       }
     },
   },
@@ -99,6 +115,11 @@ export default new Vuex.Store({
     removeItem({ commit }, item) {
       commit(types.REMOVE_ITEM, {
         url: item.href
+      });
+    },
+    searchItems({ commit }, keywords) {
+      commit(types.SEARCH_ITEMS, {
+        keywords
       });
     },
   },

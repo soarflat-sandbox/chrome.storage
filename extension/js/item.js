@@ -176,6 +176,16 @@ var Utils = function () {
 
       return data;
     }
+  }, {
+    key: "matchKeywords",
+    value: function matchKeywords(_ref2) {
+      var keywords = _ref2.keywords,
+          text = _ref2.text;
+
+      return keywords.filter(function (keyword) {
+        return text !== -1;
+      }).length === keywords.length;
+    }
   }]);
 
   return Utils;

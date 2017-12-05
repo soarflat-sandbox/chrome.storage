@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-transparent is-fixed-top">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
@@ -7,17 +7,17 @@
         </a>
       </div>
 
-      <div id="navbarExampleTransparentExample" class="navbar-menu">
+      <div class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="https://bulma.io/">閲覧履歴</a>
           <a class="navbar-item" href="https://bulma.io/">閲覧履歴</a>
         </div>
 
         <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field">
-              <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="search">
+          <div class="navbar-item is-expanded">
+            <div class="field is-grouped">
+              <p class="control has-icons-left">
+                <input v-on:input="searchItems($event.target.value)" class="input" type="text" placeholder="search">
                 <span class="icon is-small is-left">
                   <i class="fa fa-search"></i>
                 </span>
@@ -31,7 +31,8 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex';
+  import throttle from 'throttle-debounce/throttle';
 
   export default {
     name: 'navBar',
@@ -39,6 +40,9 @@
       ...mapGetters({
         items: 'allItems',
       }),
+    },
+    methods: {
+      ...mapActions(['searchItems']),
     },
   }
 </script>
