@@ -53,6 +53,11 @@ export default new Vuex.Store({
       },
     ],
     searchedItems: [],
+    sort: {
+      history: false,
+      date: false,
+      favoriteCount: false,
+    }
   },
 
   strict: process.env.NODE_ENV !== 'production',
@@ -62,6 +67,7 @@ export default new Vuex.Store({
   getters: {
     allItems: state => state.items,
     searchedItems: state => state.searchedItems,
+    sort: state => state.sort,
     // getNumberOfProducts: state => (state.all) ? state.all.length : 0,
     // cartProducts: state => {
     //   return state.added.map(({ id, quantity }) => {
@@ -110,6 +116,12 @@ export default new Vuex.Store({
         });
       }
     },
+    [types.UPDATE_SORT](state, { sort }) {
+      for (const key in state.sort) {
+        state.sort[key] = false;
+      }
+      state.sort[sort] = true;
+    },
   },
 
   // アクションは、状態を変更するのではなく、ミューテーションをコミットするもの
@@ -129,6 +141,11 @@ export default new Vuex.Store({
     searchItems({ commit }, keywords) {
       commit(types.SEARCH_ITEMS, {
         keywords
+      });
+    },
+    updateSort({ commit }, sort) {
+      commit(types.UPDATE_SORT, {
+        sort
       });
     },
   },

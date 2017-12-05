@@ -14,8 +14,19 @@
         </div>
 
         <div class="navbar-end">
-          <div class="navbar-item is-expanded">
+          <div class="navbar-item">
             <div class="field is-grouped">
+              <div class="control">
+                <div class="select">
+                  <select v-model="sortType">
+                    <!--<option disabled value="">Please select one</option>-->
+                    <option value="history">閲覧履歴順</option>
+                    <option value="date">新着順</option>
+                    <option value="favoriteCount">お気に入り登録数順</option>
+                  </select>
+                </div>
+              </div>
+
               <p class="control has-icons-left">
                 <input v-on:input="search($event.target.value)" class="input" type="text" placeholder="search">
                 <span class="icon is-small is-left">
@@ -38,16 +49,26 @@
 
   export default {
     name: 'navBar',
+    data() {
+      return {
+        sortType: 'history'
+      }
+    },
     computed: {
       ...mapGetters({
         items: 'allItems',
       }),
     },
     methods: {
-      ...mapActions(['searchItems']),
+      ...mapActions(['searchItems', 'updateSort']),
       search: throttle(300, function (value) {
         this.searchItems(value);
       }),
+    },
+    watch: {
+      sortType: function () {
+        this.updateSort(this.sortType);
+      },
     },
   }
 </script>

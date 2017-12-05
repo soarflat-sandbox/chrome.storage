@@ -43,15 +43,22 @@
   import {
     mapGetters, mapActions
   } from 'vuex';
+  import orderBy from 'lodash.orderby';
 
   export default {
     name: 'histories',
     computed: {
-      ...mapGetters(['allItems', 'searchedItems']),
+      ...mapGetters(['allItems', 'searchedItems', 'sort']),
       items() {
-        return (this.searchedItems.length > 0)
+        let items = (this.searchedItems.length > 0)
           ? this.searchedItems
           : this.allItems;
+
+        if (this.sort.favoriteCount) {
+          return orderBy(items, ['favoriteCount'], ['desc']);
+        }
+
+        return items;
       }
     },
     filters: {
