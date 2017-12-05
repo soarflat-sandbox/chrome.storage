@@ -1,16 +1,21 @@
-import { EventEmitter } from 'events';
 import Utils from './common/Utils';
 import ChromeStorage from './common/ChromeStorage';
 import DmmDomHandler from './modules/DmmDomHandler';
 
-const emitter = new EventEmitter();
 const keys = 'dmmItems';
 
 const init = () => {
   ChromeStorage.get({
     keys,
     callback: (items) => {
-      emitter.emit('getItemsFromChromeStorage', items);
+      const newItem = getItemData();
+      const updatedItems = updateItems(items, newItem);
+
+      console.log(updatedItems);
+
+      ChromeStorage.set({
+        items: updatedItems,
+      });
     },
   });
 };
@@ -52,16 +57,5 @@ const updateItems = (items, newItem) => {
 
   return entity.dmmItems.push(data);
 };
-
-emitter.on('getItemsFromChromeStorage', (items) => {
-  const newItem = getItemData();
-  const updatedItems = updateItems(items, newItem);
-
-  console.log(updatedItems);
-
-  ChromeStorage.set({
-    items: updatedItems,
-  });
-});
 
 init();
