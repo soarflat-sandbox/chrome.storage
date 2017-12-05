@@ -15,7 +15,7 @@ const init = () => {
   });
 };
 
-emitter.on('getItemsFromChromeStorage', (items) => {
+const getItemData = () => {
   const functions = [
     {
       key: 'href',
@@ -37,20 +37,30 @@ emitter.on('getItemsFromChromeStorage', (items) => {
       get: DmmDomHandler.getFavoriteCount,
     }
   ];
-  const data = Utils.mergeFunctionsReturningData({ functions });
+
+  return Utils.mergeFunctionsReturningData({ functions });
+};
+
+const updateItems = (items, newItem) => {
   const entity = {};
   entity.dmmItems = items.dmmItems || [];
+  const index = entity.dmmItems.findIndex(obj => obj.href === newItem.href);
 
-  console.log(items.dmmItems);
-
-  const index = entity.dmmItems.findIndex(obj => obj.href === data.href);
   if (index > -1) {
     entity.dmmItems.splice(index, 1)
   }
-  entity.dmmItems.push(data);
+
+  return entity.dmmItems.push(data);
+};
+
+emitter.on('getItemsFromChromeStorage', (items) => {
+  const newItem = getItemData();
+  const updatedItems = updateItems(items, newItem);
+
+  console.log(updatedItems);
 
   ChromeStorage.set({
-    items: entity,
+    items: updatedItems,
   });
 });
 
