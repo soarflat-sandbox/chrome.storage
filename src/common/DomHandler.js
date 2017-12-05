@@ -6,7 +6,7 @@ export default class DomHandler {
    * セレクタから取得した複数のテキストを配列に格納して返す
    * @param element
    * @param selectors
-   * @returns {Array}
+   * @returns {array}
    */
   static getTexts({ element = document, selectors }) {
     const texts = element.querySelectorAll(selectors);
