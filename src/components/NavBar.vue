@@ -19,7 +19,6 @@
               <div class="control">
                 <div class="select">
                   <select v-model="sortType">
-                    <!--<option disabled value="">Please select one</option>-->
                     <option value="history">閲覧履歴順</option>
                     <option value="date">新着順</option>
                     <option value="favoriteCount">お気に入り登録数順</option>

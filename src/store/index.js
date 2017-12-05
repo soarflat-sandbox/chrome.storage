@@ -68,18 +68,6 @@ export default new Vuex.Store({
     allItems: state => state.items,
     searchedItems: state => state.searchedItems,
     sort: state => state.sort,
-    // getNumberOfProducts: state => (state.all) ? state.all.length : 0,
-    // cartProducts: state => {
-    //   return state.added.map(({ id, quantity }) => {
-    //     const product = state.all.find(p => p.id === id);
-    //
-    //     return {
-    //       name: product.name,
-    //       price: product.price,
-    //       quantity
-    //     };
-    //   });
-    // },
   },
 
   // ミューテーションを状態を変更するための概念

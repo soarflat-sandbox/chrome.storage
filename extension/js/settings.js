@@ -4589,18 +4589,6 @@ exports.default = new _vuex2.default.Store({
     sort: function sort(state) {
       return state.sort;
     }
-    // getNumberOfProducts: state => (state.all) ? state.all.length : 0,
-    // cartProducts: state => {
-    //   return state.added.map(({ id, quantity }) => {
-    //     const product = state.all.find(p => p.id === id);
-    //
-    //     return {
-    //       name: product.name,
-    //       price: product.price,
-    //       quantity
-    //     };
-    //   });
-    // },
   },
 
   // ミューテーションを状態を変更するための概念
@@ -4923,7 +4911,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
-//
 //
 //
 //
