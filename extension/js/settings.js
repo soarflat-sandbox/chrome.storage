@@ -4150,43 +4150,43 @@ exports.default = new _vuex2.default.Store({
   state: {
     items: [{
       title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
       href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
       favoriteCount: 224,
       categories: ['webpack', 'JavaScript'],
       actresses: ['John Doe', 'Tom Doe']
     }, {
-      title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-      href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+      title: 'Macに別れを告げて、クラウド中心の開発生活を始めるまで',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+      href: 'https://qiita.com/cognitom/items/c489991a05f9abac748f',
       favoriteCount: 244,
       categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
       actresses: ['John Doe', 'Tom Doe']
     }, {
-      title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-      href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+      title: '一つ上のチームメンバーのそだてかた',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+      href: 'https://qiita.com/hondaYoshitaka/items/273f5e674fe3c1663a38',
       favoriteCount: 3324,
       categories: ['webpack', 'JavaScript', 'AWS', 'Android', 'AWS', 'Android', 'AWS', 'Android'],
       actresses: ['John Doe', 'Tom Doe']
     }, {
-      title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-      href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+      title: 'Google Homeに話しかけて娘のおむつ交換を記録する',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+      href: 'https://qiita.com/rechiba3/items/ef163b0fc21b37e869ef',
       favoriteCount: 4524,
       categories: [],
       actresses: ['John Doe', 'Tom Doe']
     }, {
-      title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-      href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+      title: 'Android のコンパイル済み Layout Xml を Web 経由で差し込めるようにした話',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+      href: 'https://qiita.com/YutaSakata/items/7f6c92746695c9808181',
       favoriteCount: 5524,
       categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
       actresses: ['John Doe', 'Tom Doe']
     }, {
-      title: 'new String() と String() の違い',
-      imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-      href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+      title: 'ReactにするかVue.jsにするか、jQueryだけ触っていたエンジニアがサンプル作って比較してみた',
+      imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+      href: 'https://qiita.com/ykyk1218/items/a252b04c4859446c3fc1',
       favoriteCount: 7824,
       categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
       actresses: []
@@ -4229,6 +4229,7 @@ exports.default = new _vuex2.default.Store({
     var index = state.items.findIndex(function (item) {
       return item.href === url;
     });
+    console.log(index);
 
     if (index > -1) {
       state.items.splice(index, 1);
@@ -4323,19 +4324,28 @@ if (false) {(function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
+
+var _NavBar = __webpack_require__(26);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   name: 'settings',
+  components: {
+    NavBar: _NavBar2.default
+  },
   data: function data() {
     return {};
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 17 */
@@ -4347,7 +4357,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     attrs: {
       "id": "settings"
     }
-  }, [_c('router-view')], 1)
+  }, [_c('nav-bar'), _vm._v(" "), _c('router-view')], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4450,7 +4460,7 @@ exports = module.exports = __webpack_require__(21)(true);
 
 
 // module
-exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 9999;\n  top: 5px;\n  right: 5px;\n  background: rgba(255, 56, 96, 0.7);\n  transition: background 300ms;\n}\n.card-delete-button[data-v-1e20208e]:hover {\n    background: rgba(255, 56, 96, 0.9);\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/Histories.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;EACd,uBAAuB;EACvB,aAAa;CAAE;AAEjB;EACE,mBAAmB;CAAE;AAEvB;EACE,mBAAmB;EACnB,cAAc;EACd,SAAS;EACT,WAAW;EACX,mCAAmC;EACnC,6BAA6B;CAAE;AAC/B;IACE,mCAAmC;CAAE","file":"Histories.vue","sourcesContent":[".card-equal-height {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.card-relative {\n  position: relative; }\n\n.card-delete-button {\n  position: absolute;\n  z-index: 9999;\n  top: 5px;\n  right: 5px;\n  background: rgba(255, 56, 96, 0.7);\n  transition: background 300ms; }\n  .card-delete-button:hover {\n    background: rgba(255, 56, 96, 0.9); }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.card-equal-height[data-v-1e20208e] {\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n}\n.card-relative[data-v-1e20208e] {\n  position: relative;\n}\n.card-delete-button[data-v-1e20208e] {\n  position: absolute;\n  z-index: 9999;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms;\n}\n.card-delete-button[data-v-1e20208e]:hover {\n    background: rgba(255, 56, 96, 0.8);\n}\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/Histories.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;EACd,uBAAuB;EACvB,aAAa;CAAE;AAEjB;EACE,mBAAmB;CAAE;AAEvB;EACE,mBAAmB;EACnB,cAAc;EACd,WAAW;EACX,aAAa;EACb,oBAAoB;EACpB,sBAAsB;CAAE;AACxB;IACE,mCAAmC;CAAE","file":"Histories.vue","sourcesContent":[".card-equal-height {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.card-relative {\n  position: relative; }\n\n.card-delete-button {\n  position: absolute;\n  z-index: 9999;\n  top: -10px;\n  right: -10px;\n  background: #ff3860;\n  transition: all 300ms; }\n  .card-delete-button:hover {\n    background: rgba(255, 56, 96, 0.8); }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -4840,7 +4850,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 var _vuex = __webpack_require__(3);
 
@@ -4879,9 +4888,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
     attrs: {
       "id": "histories"
     }
-  }, [_c('h1', {
-    staticClass: "title"
-  }, [_vm._v("閲覧履歴")]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
     staticClass: "columns is-multiline"
   }, _vm._l((_vm.items), function(item) {
     return _c('div', {
@@ -4931,7 +4938,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         value: (item.categories.length > 0),
         expression: "item.categories.length > 0"
       }],
-      staticClass: "subtitle is-7"
+      staticClass: "subtitle is-7 has-text-weight-semibold"
     }, [_vm._v("カテゴリ")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
@@ -4955,7 +4962,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
         value: (item.actresses.length > 0),
         expression: "item.actresses.length > 0"
       }],
-      staticClass: "subtitle is-7"
+      staticClass: "subtitle is-7 has-text-weight-semibold"
     }, [_vm._v("出演女優")]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
@@ -4983,6 +4990,228 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-1e20208e", esExports)
+  }
+}
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NavBar_vue__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NavBar_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NavBar_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05f2fe44_hasScoped_false_node_modules_vue_loader_lib_selector_type_template_index_0_NavBar_vue__ = __webpack_require__(30);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(27)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+
+/* template */
+
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NavBar_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_05f2fe44_hasScoped_false_node_modules_vue_loader_lib_selector_type_template_index_0_NavBar_vue__["a" /* default */],
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/components/NavBar.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NavBar.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-05f2fe44", Component.options)
+  } else {
+    hotAPI.reload("data-v-05f2fe44", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(28);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(22)("109271d2", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-05f2fe44\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavBar.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js?sourceMap!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-05f2fe44\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/sass-loader/lib/loader.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./NavBar.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(21)(true);
+// imports
+
+
+// module
+exports.push([module.i, "/*.nav {*/\n/*height: auto;*/\n/*margin-bottom: 2rem;*/\n/*}*/\n/*.nav-item img {*/\n/*max-height: 3.5rem;*/\n/*}*/\n/*.active-bottom-border {*/\n/*border-bottom: 3px solid #00d1b2;*/\n/*color: #00d1b2;*/\n/*padding-bottom: calc(.75rem - 8px);*/\n/*}*/\n", "", {"version":3,"sources":["/Users/mac/GitHub/sandbox/chrome.storage/src/components/NavBar.vue"],"names":[],"mappings":"AAAA,UAAU;AACV,iBAAiB;AACjB,wBAAwB;AACxB,KAAK;AACL,mBAAmB;AACnB,uBAAuB;AACvB,KAAK;AACL,2BAA2B;AAC3B,qCAAqC;AACrC,mBAAmB;AACnB,uCAAuC;AACvC,KAAK","file":"NavBar.vue","sourcesContent":["/*.nav {*/\n/*height: auto;*/\n/*margin-bottom: 2rem;*/\n/*}*/\n/*.nav-item img {*/\n/*max-height: 3.5rem;*/\n/*}*/\n/*.active-bottom-border {*/\n/*border-bottom: 3px solid #00d1b2;*/\n/*color: #00d1b2;*/\n/*padding-bottom: calc(.75rem - 8px);*/\n/*}*/\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var _vuex = __webpack_require__(3);
+
+exports.default = {
+  name: 'navBar',
+  computed: _extends({}, (0, _vuex.mapGetters)({
+    items: 'allItems'
+  }))
+};
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0, false, false)
+}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('nav', {
+    staticClass: "navbar is-transparent"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "navbar-brand"
+  }, [_c('a', {
+    staticClass: "navbar-item",
+    attrs: {
+      "href": "https://bulma.io"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "https://bulma.io/images/bulma-logo.png",
+      "alt": "Bulma: a modern CSS framework based on Flexbox",
+      "width": "112",
+      "height": "28"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "navbar-menu",
+    attrs: {
+      "id": "navbarExampleTransparentExample"
+    }
+  }, [_c('div', {
+    staticClass: "navbar-start"
+  }, [_c('a', {
+    staticClass: "navbar-item",
+    attrs: {
+      "href": "https://bulma.io/"
+    }
+  }, [_vm._v("閲覧履歴")]), _vm._v(" "), _c('a', {
+    staticClass: "navbar-item",
+    attrs: {
+      "href": "https://bulma.io/"
+    }
+  }, [_vm._v("閲覧履歴")])]), _vm._v(" "), _c('div', {
+    staticClass: "navbar-end"
+  }, [_c('div', {
+    staticClass: "navbar-item"
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control has-icons-left has-icons-right"
+  }, [_c('input', {
+    staticClass: "input",
+    attrs: {
+      "type": "email",
+      "placeholder": "search"
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "icon is-small is-left"
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })])])])])])])])])
+}]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-05f2fe44", esExports)
   }
 }
 

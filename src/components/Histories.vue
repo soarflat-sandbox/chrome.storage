@@ -1,7 +1,6 @@
 <template>
   <section class="section">
     <div id="histories" class="container">
-      <h1 class="title">閲覧履歴</h1>
       <div class="columns is-multiline">
         <div v-for="item in items" class="column is-one-quarter">
           <div class="card card-equal-height">
@@ -20,11 +19,11 @@
                   <i class="fa fa-heart has-text-danger" aria-hidden="true"></i>
                   <span>{{ item.favoriteCount }}</span>
                 </p>
-                <p v-show="item.categories.length > 0" class="subtitle is-7">カテゴリ</p>
+                <p v-show="item.categories.length > 0" class="subtitle is-7 has-text-weight-semibold">カテゴリ</p>
                 <div v-show="item.categories.length > 0" class="tags">
                   <a v-for="category in item.categories" :href="category | categoryUrl" target="_blank" class="tag">{{ category }}</a>
                 </div>
-                <p v-show="item.actresses.length > 0" class="subtitle is-7">出演女優</p>
+                <p v-show="item.actresses.length > 0" class="subtitle is-7 has-text-weight-semibold">出演女優</p>
                 <div v-show="item.actresses.length > 0" class="tags">
                   <a v-for="actress in item.actresses" :href="actress | categoryUrl" target="_blank" class="tag">{{ actress }}</a>
                 </div>
@@ -80,12 +79,12 @@
   .card-delete-button {
     position: absolute;
     z-index: 9999;
-    top: 5px;
-    right: 5px;
-    background: rgba(255, 56, 96, .7);
-    transition: background 300ms;
+    top: -10px;
+    right: -10px;
+    background: rgba(255, 56, 96, 1);
+    transition: all 300ms;
     &:hover {
-      background: rgba(255, 56, 96, .9);
+      background: rgba(255, 56, 96, .8);
     }
   }
 </style>

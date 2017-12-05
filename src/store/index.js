@@ -9,43 +9,43 @@ export default new Vuex.Store({
     items: [
       {
         title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
         href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
         favoriteCount: 224,
         categories: ['webpack', 'JavaScript'],
         actresses: ['John Doe', 'Tom Doe']
       }, {
-        title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-        href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+        title: 'Macに別れを告げて、クラウド中心の開発生活を始めるまで',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+        href: 'https://qiita.com/cognitom/items/c489991a05f9abac748f',
         favoriteCount: 244,
         categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
         actresses: ['John Doe', 'Tom Doe']
       }, {
-        title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-        href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+        title: '一つ上のチームメンバーのそだてかた',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+        href: 'https://qiita.com/hondaYoshitaka/items/273f5e674fe3c1663a38',
         favoriteCount: 3324,
         categories: ['webpack', 'JavaScript', 'AWS', 'Android', 'AWS', 'Android', 'AWS', 'Android'],
         actresses: ['John Doe', 'Tom Doe']
       }, {
-        title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-        href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+        title: 'Google Homeに話しかけて娘のおむつ交換を記録する',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+        href: 'https://qiita.com/rechiba3/items/ef163b0fc21b37e869ef',
         favoriteCount: 4524,
         categories: [],
         actresses: ['John Doe', 'Tom Doe']
       }, {
-        title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-        href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+        title: 'Android のコンパイル済み Layout Xml を Web 経由で差し込めるようにした話',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+        href: 'https://qiita.com/YutaSakata/items/7f6c92746695c9808181',
         favoriteCount: 5524,
         categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
         actresses: ['John Doe', 'Tom Doe']
       }, {
-        title: 'new String() と String() の違い',
-        imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-        href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
+        title: 'ReactにするかVue.jsにするか、jQueryだけ触っていたエンジニアがサンプル作って比較してみた',
+        imageUrl: 'https://dummyimage.com/300/09f/fff.png',
+        href: 'https://qiita.com/ykyk1218/items/a252b04c4859446c3fc1',
         favoriteCount: 7824,
         categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
         actresses: []
@@ -84,6 +84,7 @@ export default new Vuex.Store({
   mutations: {
     [types.REMOVE_ITEM](state, { url }) {
       const index = state.items.findIndex(item => item.href === url);
+      console.log(index);
 
       if (index > -1) {
         state.items.splice(index, 1)
