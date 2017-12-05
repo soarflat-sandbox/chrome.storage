@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,17 +68,18 @@
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Utils = __webpack_require__(5);
+var _Utils = __webpack_require__(6);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _DmmDomHandler = __webpack_require__(6);
+var _DmmDomHandler = __webpack_require__(7);
 
 var _DmmDomHandler2 = _interopRequireDefault(_DmmDomHandler);
 
@@ -138,7 +139,7 @@ var updateItems = function updateItems(items, newItem) {
 init();
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -183,7 +184,7 @@ var Utils = function () {
 exports.default = Utils;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -195,7 +196,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _DomHandler = __webpack_require__(7);
+var _DomHandler = __webpack_require__(8);
 
 var _DomHandler2 = _interopRequireDefault(_DomHandler);
 
@@ -282,7 +283,7 @@ var DmmDomHandler = function () {
 exports.default = DmmDomHandler;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

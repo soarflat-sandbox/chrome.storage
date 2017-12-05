@@ -4,8 +4,9 @@
       <h1 class="title">閲覧履歴</h1>
       <div class="columns is-multiline">
         <div v-for="item in items" class="column is-one-quarter">
-          <div class="card bm--card-equal-height">
-            <div class="card-image">
+          <div class="card card-equal-height">
+            <div class="card-image card-relative">
+              <button @click="removeItem(item)" class="delete is-medium card-delete-button"></button>
               <figure class="image">
                 <a :href="item.href" target="_blank">
                   <img :src="item.imageUrl">
@@ -14,20 +15,17 @@
             </div>
             <div class="card-content">
               <p class="title is-size-6"><a :href="item.href" target="_blank">{{ item.title }} </a></p>
-
               <div class="content">
                 <p>
                   <i class="fa fa-heart has-text-danger" aria-hidden="true"></i>
                   <span>{{ item.favoriteCount }}</span>
                 </p>
-
-                <p v-show="item.categories.length > 0" class="subtitle is-7">カテゴリ</p>
-                <div class="tags">
+                <p v-show="item.categories | isCategories" class="subtitle is-7">カテゴリ</p>
+                <div v-show="item.categories | isCategories" class="tags">
                   <a v-for="category in item.categories" :href="category | categoryUrl" target="_blank" class="tag">{{ category }}</a>
                 </div>
-
-                <p v-show="item.actresses.length > 0" class="subtitle is-7">出演女優</p>
-                <div class="tags">
+                <p v-show="item.actresses | isActresses" class="subtitle is-7">出演女優</p>
+                <div v-show="item.actresses | isActresses" class="tags">
                   <a v-for="actress in item.actresses" :href="actress | categoryUrl" target="_blank" class="tag">{{ actress }}</a>
                 </div>
               </div>
@@ -40,58 +38,24 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
+
   export default {
     name: 'histories',
-    data() {
-      return {
-        items: [{
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: ['webpack', 'JavaScript'],
-          actresses: ['John Doe', 'Tom Doe']
-        }, {
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
-          actresses: ['John Doe', 'Tom Doe']
-        }, {
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: ['webpack', 'JavaScript', 'AWS', 'Android', 'AWS', 'Android', 'AWS', 'Android', 'AWS', 'Android'],
-          actresses: ['John Doe', 'Tom Doe']
-        }, {
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: [],
-          actresses: ['John Doe', 'Tom Doe']
-        }, {
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
-          actresses: ['John Doe', 'Tom Doe']
-        }, {
-          title: 'new String() と String() の違い',
-          imageUrl: 'http://materializecss.com/images/sample-1.jpg',
-          href: 'https://qiita.com/y_ito/items/33e303877f7eb44b15ff',
-          favoriteCount: 224,
-          categories: ['webpack', 'JavaScript', 'AWS', 'Android'],
-          actresses: []
-        }],
-      }
+    computed: {
+      ...mapGetters({
+        items: 'allItems',
+      }),
     },
     filters: {
       categoryUrl(category) {
         return `https://qiita.com/tags/${category}`;
+      },
+      isCategories(categories) {
+        return (categories.length > 0);
+      },
+      isActresses(actresses) {
+        return (actresses.length > 0);
       },
     },
     methods: {
@@ -100,6 +64,7 @@
 //          this.items = items.dmmItems;
 //        });
       },
+      ...mapActions(['removeItem']),
     },
     created() {
       this.update();
@@ -108,9 +73,21 @@
 </script>
 
 <style scoped>
-  .bm--card-equal-height {
+  .card-equal-height {
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+
+  .card-relative {
+    position: relative;
+  }
+
+  .card-delete-button {
+    position: absolute;
+    z-index: 9999;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 56, 96, .6)
   }
 </style>
