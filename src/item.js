@@ -1,22 +1,16 @@
 import Utils from './common/Utils';
-import ChromeStorage from './common/ChromeStorage';
 import DmmDomHandler from './modules/DmmDomHandler';
 
-const keys = 'dmmItems';
-
 const init = () => {
-  ChromeStorage.get({
-    keys,
-    callback: (items) => {
-      const newItem = getItemData();
-      const updatedItems = updateItems(items, newItem);
+  const keys = 'dmmItems';
 
-      console.log(updatedItems);
+  chrome.storage.local.get(keys, (items) => {
+    const newItem = getItemData();
+    const updatedItems = updateItems(items, newItem);
 
-      ChromeStorage.set({
-        items: updatedItems,
-      });
-    },
+    console.log(updatedItems);
+
+    chrome.storage.local.set(updatedItems);
   });
 };
 
